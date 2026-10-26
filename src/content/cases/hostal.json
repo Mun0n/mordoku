@@ -1,0 +1,457 @@
+{
+  "id": "hostal",
+  "title": "El hostal",
+  "difficulty": "easy",
+  "blurb": "La llave de Olga seguía en el casillero de las siete.",
+  "size": 7,
+  "areas": [
+    {
+      "id": 0,
+      "name": "el Recibidor",
+      "color": "#f0c7b8",
+      "cells": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          3
+        ]
+      ]
+    },
+    {
+      "id": 1,
+      "name": "el Comedor",
+      "color": "#f6e2a8",
+      "cells": [
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          5
+        ],
+        [
+          0,
+          6
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          2,
+          6
+        ]
+      ]
+    },
+    {
+      "id": 2,
+      "name": "el Pasillo",
+      "color": "#c5daf3",
+      "cells": [
+        [
+          3,
+          0
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          4,
+          0
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          4,
+          6
+        ]
+      ]
+    },
+    {
+      "id": 3,
+      "name": "la Cocina",
+      "color": "#cfe6c4",
+      "cells": [
+        [
+          5,
+          0
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          6,
+          0
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          6,
+          3
+        ]
+      ]
+    },
+    {
+      "id": 4,
+      "name": "el Patio",
+      "color": "#d5ebe4",
+      "cells": [
+        [
+          5,
+          4
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          6,
+          4
+        ],
+        [
+          6,
+          5
+        ],
+        [
+          6,
+          6
+        ]
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "r": 1,
+      "c": 0,
+      "kind": "silla"
+    },
+    {
+      "r": 1,
+      "c": 1,
+      "kind": "planta"
+    },
+    {
+      "r": 2,
+      "c": 4,
+      "kind": "mesa"
+    },
+    {
+      "r": 2,
+      "c": 6,
+      "kind": "estanteria"
+    },
+    {
+      "r": 3,
+      "c": 3,
+      "kind": "alfombra"
+    },
+    {
+      "r": 5,
+      "c": 2,
+      "kind": "silla"
+    },
+    {
+      "r": 6,
+      "c": 4,
+      "kind": "sofa"
+    },
+    {
+      "r": 6,
+      "c": 6,
+      "kind": "planta"
+    }
+  ],
+  "blocked": [
+    [
+      1,
+      1
+    ],
+    [
+      2,
+      4
+    ],
+    [
+      2,
+      6
+    ],
+    [
+      6,
+      6
+    ]
+  ],
+  "victim": {
+    "id": "olga",
+    "name": "Olga Ferrer",
+    "role": "hostelera",
+    "color": "#6b6258",
+    "cell": [
+      0,
+      1
+    ]
+  },
+  "suspects": [
+    {
+      "id": "nora",
+      "name": "Nora Gil",
+      "role": "huésped",
+      "color": "#c4476a",
+      "clues": [
+        {
+          "kind": "row",
+          "id": 1
+        },
+        {
+          "kind": "on",
+          "object": "silla"
+        },
+        {
+          "kind": "beside",
+          "object": "planta"
+        }
+      ]
+    },
+    {
+      "id": "ivan",
+      "name": "Iván Mora",
+      "role": "cocinero",
+      "color": "#b85a18",
+      "clues": [
+        {
+          "kind": "row",
+          "id": 2
+        },
+        {
+          "kind": "area",
+          "id": 1
+        }
+      ]
+    },
+    {
+      "id": "luz",
+      "name": "Luz Serra",
+      "role": "camarera",
+      "color": "#8c6410",
+      "clues": [
+        {
+          "kind": "row",
+          "id": 3
+        },
+        {
+          "kind": "on",
+          "object": "alfombra"
+        }
+      ]
+    },
+    {
+      "id": "teo",
+      "name": "Teo Costa",
+      "role": "mozo",
+      "color": "#2f8f55",
+      "clues": [
+        {
+          "kind": "south",
+          "of": "luz"
+        },
+        {
+          "kind": "col",
+          "id": 6
+        },
+        {
+          "kind": "area",
+          "id": 2
+        }
+      ]
+    },
+    {
+      "id": "paz",
+      "name": "Paz Rivas",
+      "role": "huésped",
+      "color": "#2a7f86",
+      "clues": [
+        {
+          "kind": "row",
+          "id": 5
+        },
+        {
+          "kind": "area",
+          "id": 3
+        },
+        {
+          "kind": "on",
+          "object": "silla"
+        }
+      ]
+    },
+    {
+      "id": "gael",
+      "name": "Gael Vidal",
+      "role": "conductor",
+      "color": "#3a6fbe",
+      "clues": [
+        {
+          "kind": "south",
+          "of": "paz"
+        },
+        {
+          "kind": "on",
+          "object": "sofa"
+        },
+        {
+          "kind": "area",
+          "id": 4
+        }
+      ]
+    }
+  ],
+  "caseClues": [
+    {
+      "kind": "census",
+      "area": 2,
+      "count": 2
+    }
+  ],
+  "solution": {
+    "nora": [
+      1,
+      0
+    ],
+    "ivan": [
+      2,
+      5
+    ],
+    "luz": [
+      3,
+      3
+    ],
+    "teo": [
+      4,
+      6
+    ],
+    "paz": [
+      5,
+      2
+    ],
+    "gael": [
+      6,
+      4
+    ]
+  }
+}

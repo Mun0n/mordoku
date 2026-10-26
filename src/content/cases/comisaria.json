@@ -1,0 +1,531 @@
+{
+  "id": "comisaria",
+  "title": "La comisaría",
+  "difficulty": "medium",
+  "blurb": "El parte de Pedro quedó sin firmar en el torno.",
+  "size": 8,
+  "areas": [
+    {
+      "id": 0,
+      "name": "la Sala",
+      "color": "#f0c7b8",
+      "cells": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          5
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          2,
+          5
+        ]
+      ]
+    },
+    {
+      "id": 1,
+      "name": "el Laboratorio",
+      "color": "#d5ebe4",
+      "cells": [
+        [
+          0,
+          6
+        ],
+        [
+          0,
+          7
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          1,
+          7
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          2,
+          7
+        ]
+      ]
+    },
+    {
+      "id": 2,
+      "name": "el Pasillo",
+      "color": "#f6e2a8",
+      "cells": [
+        [
+          3,
+          0
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          3,
+          7
+        ],
+        [
+          4,
+          0
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          4,
+          6
+        ],
+        [
+          4,
+          7
+        ]
+      ]
+    },
+    {
+      "id": 3,
+      "name": "el Archivo",
+      "color": "#f3d7c0",
+      "cells": [
+        [
+          5,
+          0
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          6,
+          0
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          7,
+          0
+        ],
+        [
+          7,
+          1
+        ],
+        [
+          7,
+          2
+        ],
+        [
+          7,
+          3
+        ]
+      ]
+    },
+    {
+      "id": 4,
+      "name": "las Fichas",
+      "color": "#c5daf3",
+      "cells": [
+        [
+          5,
+          4
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          6,
+          4
+        ],
+        [
+          6,
+          5
+        ],
+        [
+          6,
+          6
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          7,
+          4
+        ],
+        [
+          7,
+          5
+        ],
+        [
+          7,
+          6
+        ],
+        [
+          7,
+          7
+        ]
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "r": 1,
+      "c": 1,
+      "kind": "planta"
+    },
+    {
+      "r": 2,
+      "c": 6,
+      "kind": "mesa"
+    },
+    {
+      "r": 0,
+      "c": 7,
+      "kind": "estanteria"
+    },
+    {
+      "r": 3,
+      "c": 4,
+      "kind": "alfombra"
+    },
+    {
+      "r": 5,
+      "c": 3,
+      "kind": "silla"
+    },
+    {
+      "r": 7,
+      "c": 5,
+      "kind": "sofa"
+    }
+  ],
+  "blocked": [
+    [
+      1,
+      1
+    ],
+    [
+      2,
+      6
+    ],
+    [
+      0,
+      7
+    ]
+  ],
+  "victim": {
+    "id": "pedro",
+    "name": "Pedro Lama",
+    "role": "oficial",
+    "color": "#6b6258",
+    "cell": [
+      0,
+      2
+    ]
+  },
+  "suspects": [
+    {
+      "id": "ana",
+      "name": "Ana Rivas",
+      "role": "testigo",
+      "color": "#c4476a",
+      "clues": [
+        {
+          "kind": "col",
+          "id": 0
+        },
+        {
+          "kind": "beside",
+          "object": "planta"
+        },
+        {
+          "kind": "area",
+          "id": 0
+        }
+      ]
+    },
+    {
+      "id": "bruno",
+      "name": "Bruno Gil",
+      "role": "forense",
+      "color": "#b85a18",
+      "clues": [
+        {
+          "kind": "row",
+          "id": 2
+        },
+        {
+          "kind": "area",
+          "id": 1
+        },
+        {
+          "kind": "north",
+          "of": "cleo"
+        }
+      ]
+    },
+    {
+      "id": "cleo",
+      "name": "Cloe Mora",
+      "role": "abogada",
+      "color": "#8c6410",
+      "clues": [
+        {
+          "kind": "row",
+          "id": 3
+        },
+        {
+          "kind": "on",
+          "object": "alfombra"
+        }
+      ]
+    },
+    {
+      "id": "diego",
+      "name": "Diego Paz",
+      "role": "periodista",
+      "color": "#2f8f55",
+      "clues": [
+        {
+          "kind": "south",
+          "of": "cleo"
+        },
+        {
+          "kind": "col",
+          "id": 1
+        },
+        {
+          "kind": "area",
+          "id": 2
+        }
+      ]
+    },
+    {
+      "id": "elsa",
+      "name": "Elsa Cid",
+      "role": "archivera",
+      "color": "#2a7f86",
+      "clues": [
+        {
+          "kind": "row",
+          "id": 5
+        },
+        {
+          "kind": "area",
+          "id": 3
+        },
+        {
+          "kind": "on",
+          "object": "silla"
+        }
+      ]
+    },
+    {
+      "id": "fabio",
+      "name": "Fabio Soler",
+      "role": "escolta",
+      "color": "#3a6fbe",
+      "clues": [
+        {
+          "kind": "col",
+          "id": 6
+        },
+        {
+          "kind": "south",
+          "of": "elsa"
+        },
+        {
+          "kind": "north",
+          "of": "greta"
+        }
+      ]
+    },
+    {
+      "id": "greta",
+      "name": "Greta Vidal",
+      "role": "inspectora",
+      "color": "#6d52b8",
+      "clues": [
+        {
+          "kind": "row",
+          "id": 7
+        },
+        {
+          "kind": "on",
+          "object": "sofa"
+        },
+        {
+          "kind": "area",
+          "id": 4
+        }
+      ]
+    }
+  ],
+  "caseClues": [
+    {
+      "kind": "census",
+      "area": 2,
+      "count": 2
+    }
+  ],
+  "solution": {
+    "ana": [
+      1,
+      0
+    ],
+    "bruno": [
+      2,
+      7
+    ],
+    "cleo": [
+      3,
+      4
+    ],
+    "diego": [
+      4,
+      1
+    ],
+    "elsa": [
+      5,
+      3
+    ],
+    "fabio": [
+      6,
+      6
+    ],
+    "greta": [
+      7,
+      5
+    ]
+  }
+}

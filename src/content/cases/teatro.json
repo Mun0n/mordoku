@@ -1,0 +1,542 @@
+{
+  "id": "teatro",
+  "title": "El teatro",
+  "difficulty": "medium",
+  "blurb": "Bajó el telón y Julia no salió a saludar.",
+  "size": 8,
+  "areas": [
+    {
+      "id": 0,
+      "name": "la Sala",
+      "color": "#f0c7b8",
+      "cells": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          3
+        ]
+      ]
+    },
+    {
+      "id": 1,
+      "name": "el Escenario",
+      "color": "#f6e2a8",
+      "cells": [
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          5
+        ],
+        [
+          0,
+          6
+        ],
+        [
+          0,
+          7
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          1,
+          7
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          2,
+          7
+        ]
+      ]
+    },
+    {
+      "id": 2,
+      "name": "el Patio",
+      "color": "#c5daf3",
+      "cells": [
+        [
+          3,
+          0
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          3,
+          7
+        ],
+        [
+          4,
+          0
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          4,
+          6
+        ],
+        [
+          4,
+          7
+        ]
+      ]
+    },
+    {
+      "id": 3,
+      "name": "el Camerino",
+      "color": "#e4d2f4",
+      "cells": [
+        [
+          5,
+          0
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          6,
+          0
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          7,
+          0
+        ],
+        [
+          7,
+          1
+        ],
+        [
+          7,
+          2
+        ],
+        [
+          7,
+          3
+        ]
+      ]
+    },
+    {
+      "id": 4,
+      "name": "la Calle",
+      "color": "#cfe6c4",
+      "cells": [
+        [
+          5,
+          4
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          6,
+          4
+        ],
+        [
+          6,
+          5
+        ],
+        [
+          6,
+          6
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          7,
+          4
+        ],
+        [
+          7,
+          5
+        ],
+        [
+          7,
+          6
+        ],
+        [
+          7,
+          7
+        ]
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "r": 1,
+      "c": 1,
+      "kind": "planta"
+    },
+    {
+      "r": 2,
+      "c": 5,
+      "kind": "planta"
+    },
+    {
+      "r": 0,
+      "c": 6,
+      "kind": "mesa"
+    },
+    {
+      "r": 3,
+      "c": 3,
+      "kind": "alfombra"
+    },
+    {
+      "r": 5,
+      "c": 1,
+      "kind": "estanteria"
+    },
+    {
+      "r": 7,
+      "c": 4,
+      "kind": "sofa"
+    }
+  ],
+  "blocked": [
+    [
+      1,
+      1
+    ],
+    [
+      2,
+      5
+    ],
+    [
+      0,
+      6
+    ],
+    [
+      5,
+      1
+    ]
+  ],
+  "victim": {
+    "id": "julia",
+    "name": "Julia Cano",
+    "role": "actriz",
+    "color": "#6b6258",
+    "cell": [
+      0,
+      1
+    ]
+  },
+  "suspects": [
+    {
+      "id": "ana",
+      "name": "Ana Rivas",
+      "role": "apuntadora",
+      "color": "#c4476a",
+      "clues": [
+        {
+          "kind": "col",
+          "id": 0
+        },
+        {
+          "kind": "beside",
+          "object": "planta"
+        }
+      ]
+    },
+    {
+      "id": "bruno",
+      "name": "Bruno Gil",
+      "role": "tramoyista",
+      "color": "#b85a18",
+      "clues": [
+        {
+          "kind": "row",
+          "id": 2
+        },
+        {
+          "kind": "area",
+          "id": 1
+        },
+        {
+          "kind": "beside",
+          "object": "planta"
+        },
+        {
+          "kind": "corner",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": "cloe",
+      "name": "Cloe Mora",
+      "role": "vestuario",
+      "color": "#8c6410",
+      "clues": [
+        {
+          "kind": "south",
+          "of": "bruno"
+        },
+        {
+          "kind": "north",
+          "of": "diego"
+        },
+        {
+          "kind": "col",
+          "id": 3
+        }
+      ]
+    },
+    {
+      "id": "diego",
+      "name": "Diego Paz",
+      "role": "director",
+      "color": "#2f8f55",
+      "clues": [
+        {
+          "kind": "corner"
+        },
+        {
+          "kind": "col",
+          "id": 7
+        },
+        {
+          "kind": "south",
+          "of": "cloe"
+        }
+      ]
+    },
+    {
+      "id": "elsa",
+      "name": "Elsa Cid",
+      "role": "maquilladora",
+      "color": "#2a7f86",
+      "clues": [
+        {
+          "kind": "row",
+          "id": 5
+        },
+        {
+          "kind": "area",
+          "id": 3
+        },
+        {
+          "kind": "beside",
+          "object": "estanteria"
+        },
+        {
+          "kind": "corner",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": "fabio",
+      "name": "Fabio Soler",
+      "role": "acomodador",
+      "color": "#3a6fbe",
+      "clues": [
+        {
+          "kind": "col",
+          "id": 5
+        },
+        {
+          "kind": "south",
+          "of": "elsa"
+        },
+        {
+          "kind": "north",
+          "of": "greta"
+        }
+      ]
+    },
+    {
+      "id": "greta",
+      "name": "Greta Vidal",
+      "role": "crítica",
+      "color": "#6d52b8",
+      "clues": [
+        {
+          "kind": "row",
+          "id": 7
+        },
+        {
+          "kind": "on",
+          "object": "sofa"
+        },
+        {
+          "kind": "area",
+          "id": 4
+        }
+      ]
+    }
+  ],
+  "caseClues": [
+    {
+      "kind": "census",
+      "area": 2,
+      "count": 2
+    }
+  ],
+  "solution": {
+    "ana": [
+      1,
+      0
+    ],
+    "bruno": [
+      2,
+      6
+    ],
+    "cloe": [
+      3,
+      3
+    ],
+    "diego": [
+      4,
+      7
+    ],
+    "elsa": [
+      5,
+      2
+    ],
+    "fabio": [
+      6,
+      5
+    ],
+    "greta": [
+      7,
+      4
+    ]
+  }
+}

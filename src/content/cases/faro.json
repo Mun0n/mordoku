@@ -1,0 +1,538 @@
+{
+  "id": "faro",
+  "title": "El faro",
+  "difficulty": "medium",
+  "blurb": "La luz giró sola toda la noche. León no bajó.",
+  "size": 8,
+  "areas": [
+    {
+      "id": 0,
+      "name": "la Torre",
+      "color": "#f6e2a8",
+      "cells": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ]
+      ]
+    },
+    {
+      "id": 1,
+      "name": "el Observatorio",
+      "color": "#c5daf3",
+      "cells": [
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          5
+        ],
+        [
+          0,
+          6
+        ],
+        [
+          0,
+          7
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          1,
+          7
+        ]
+      ]
+    },
+    {
+      "id": 2,
+      "name": "el Muelle",
+      "color": "#d5ebe4",
+      "cells": [
+        [
+          2,
+          0
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          2,
+          7
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          3,
+          7
+        ]
+      ]
+    },
+    {
+      "id": 3,
+      "name": "la Casa",
+      "color": "#f0c7b8",
+      "cells": [
+        [
+          4,
+          0
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          5,
+          0
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          6,
+          0
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          6,
+          3
+        ]
+      ]
+    },
+    {
+      "id": 4,
+      "name": "el Embarcadero",
+      "color": "#cfe6c4",
+      "cells": [
+        [
+          4,
+          4
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          4,
+          6
+        ],
+        [
+          4,
+          7
+        ],
+        [
+          5,
+          4
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          6,
+          4
+        ],
+        [
+          6,
+          5
+        ],
+        [
+          6,
+          6
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "id": 5,
+      "name": "el Rompeolas",
+      "color": "#e4d2f4",
+      "cells": [
+        [
+          7,
+          0
+        ],
+        [
+          7,
+          1
+        ],
+        [
+          7,
+          2
+        ],
+        [
+          7,
+          3
+        ],
+        [
+          7,
+          4
+        ],
+        [
+          7,
+          5
+        ],
+        [
+          7,
+          6
+        ],
+        [
+          7,
+          7
+        ]
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "r": 1,
+      "c": 1,
+      "kind": "planta"
+    },
+    {
+      "r": 2,
+      "c": 5,
+      "kind": "alfombra"
+    },
+    {
+      "r": 4,
+      "c": 3,
+      "kind": "silla"
+    },
+    {
+      "r": 5,
+      "c": 7,
+      "kind": "estanteria"
+    },
+    {
+      "r": 7,
+      "c": 4,
+      "kind": "sofa"
+    },
+    {
+      "r": 0,
+      "c": 6,
+      "kind": "mesa"
+    }
+  ],
+  "blocked": [
+    [
+      1,
+      1
+    ],
+    [
+      5,
+      7
+    ],
+    [
+      0,
+      6
+    ]
+  ],
+  "victim": {
+    "id": "leon",
+    "name": "León Duarte",
+    "role": "farero",
+    "color": "#6b6258",
+    "cell": [
+      0,
+      1
+    ]
+  },
+  "suspects": [
+    {
+      "id": "ana",
+      "name": "Ana Rivas",
+      "role": "sobrina",
+      "color": "#c4476a",
+      "clues": [
+        {
+          "kind": "col",
+          "id": 0
+        },
+        {
+          "kind": "beside",
+          "object": "planta"
+        },
+        {
+          "kind": "area",
+          "id": 0
+        }
+      ]
+    },
+    {
+      "id": "bruno",
+      "name": "Bruno Gil",
+      "role": "patrón",
+      "color": "#b85a18",
+      "clues": [
+        {
+          "kind": "row",
+          "id": 2
+        },
+        {
+          "kind": "on",
+          "object": "alfombra"
+        },
+        {
+          "kind": "north",
+          "of": "cleo"
+        }
+      ]
+    },
+    {
+      "id": "cleo",
+      "name": "Cloe Mora",
+      "role": "marinera",
+      "color": "#8c6410",
+      "clues": [
+        {
+          "kind": "south",
+          "of": "bruno"
+        },
+        {
+          "kind": "col",
+          "id": 7
+        },
+        {
+          "kind": "area",
+          "id": 2
+        }
+      ]
+    },
+    {
+      "id": "diego",
+      "name": "Diego Paz",
+      "role": "mecánico",
+      "color": "#2f8f55",
+      "clues": [
+        {
+          "kind": "row",
+          "id": 4
+        },
+        {
+          "kind": "area",
+          "id": 3
+        },
+        {
+          "kind": "on",
+          "object": "silla"
+        }
+      ]
+    },
+    {
+      "id": "elsa",
+      "name": "Elsa Cid",
+      "role": "bióloga",
+      "color": "#2a7f86",
+      "clues": [
+        {
+          "kind": "row",
+          "id": 5
+        },
+        {
+          "kind": "beside",
+          "object": "estanteria"
+        }
+      ]
+    },
+    {
+      "id": "fabio",
+      "name": "Fabio Soler",
+      "role": "práctico",
+      "color": "#3a6fbe",
+      "clues": [
+        {
+          "kind": "row",
+          "id": 6
+        },
+        {
+          "kind": "col",
+          "id": 2
+        },
+        {
+          "kind": "area",
+          "id": 3
+        },
+        {
+          "kind": "south",
+          "of": "diego"
+        }
+      ]
+    },
+    {
+      "id": "greta",
+      "name": "Greta Vidal",
+      "role": "periodista",
+      "color": "#6d52b8",
+      "clues": [
+        {
+          "kind": "row",
+          "id": 7
+        },
+        {
+          "kind": "on",
+          "object": "sofa"
+        }
+      ]
+    }
+  ],
+  "caseClues": [
+    {
+      "kind": "census",
+      "area": 2,
+      "count": 2
+    }
+  ],
+  "solution": {
+    "ana": [
+      1,
+      0
+    ],
+    "bruno": [
+      2,
+      5
+    ],
+    "cleo": [
+      3,
+      7
+    ],
+    "diego": [
+      4,
+      3
+    ],
+    "elsa": [
+      5,
+      6
+    ],
+    "fabio": [
+      6,
+      2
+    ],
+    "greta": [
+      7,
+      4
+    ]
+  }
+}

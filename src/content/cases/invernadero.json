@@ -1,0 +1,450 @@
+{
+  "id": "invernadero",
+  "title": "El invernadero",
+  "difficulty": "easy",
+  "blurb": "El riego saltó a su hora. Irene no llegó a cerrar la llave.",
+  "size": 7,
+  "areas": [
+    {
+      "id": 0,
+      "name": "el Vivero",
+      "color": "#cfe6c4",
+      "cells": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          2
+        ]
+      ]
+    },
+    {
+      "id": 1,
+      "name": "el Agua",
+      "color": "#c5daf3",
+      "cells": [
+        [
+          0,
+          3
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          5
+        ],
+        [
+          0,
+          6
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          2,
+          6
+        ]
+      ]
+    },
+    {
+      "id": 2,
+      "name": "el Pasillo",
+      "color": "#f6e2a8",
+      "cells": [
+        [
+          3,
+          0
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          4,
+          0
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          4,
+          6
+        ]
+      ]
+    },
+    {
+      "id": 3,
+      "name": "el Semillero",
+      "color": "#f0c7b8",
+      "cells": [
+        [
+          5,
+          0
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          6,
+          0
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          6,
+          3
+        ]
+      ]
+    },
+    {
+      "id": 4,
+      "name": "el Trastero",
+      "color": "#e4d2f4",
+      "cells": [
+        [
+          5,
+          4
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          6,
+          4
+        ],
+        [
+          6,
+          5
+        ],
+        [
+          6,
+          6
+        ]
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "r": 1,
+      "c": 2,
+      "kind": "silla"
+    },
+    {
+      "r": 2,
+      "c": 4,
+      "kind": "planta"
+    },
+    {
+      "r": 0,
+      "c": 6,
+      "kind": "mesa"
+    },
+    {
+      "r": 3,
+      "c": 0,
+      "kind": "alfombra"
+    },
+    {
+      "r": 5,
+      "c": 0,
+      "kind": "estanteria"
+    },
+    {
+      "r": 5,
+      "c": 3,
+      "kind": "silla"
+    },
+    {
+      "r": 6,
+      "c": 4,
+      "kind": "sofa"
+    }
+  ],
+  "blocked": [
+    [
+      2,
+      4
+    ],
+    [
+      0,
+      6
+    ],
+    [
+      5,
+      0
+    ]
+  ],
+  "victim": {
+    "id": "irene",
+    "name": "Irene Bosch",
+    "role": "botánica",
+    "color": "#6b6258",
+    "cell": [
+      0,
+      1
+    ]
+  },
+  "suspects": [
+    {
+      "id": "nora",
+      "name": "Nora Gil",
+      "role": "becaria",
+      "color": "#c4476a",
+      "clues": [
+        {
+          "kind": "row",
+          "id": 1
+        },
+        {
+          "kind": "area",
+          "id": 0
+        },
+        {
+          "kind": "on",
+          "object": "silla"
+        }
+      ]
+    },
+    {
+      "id": "ivan",
+      "name": "Iván Mora",
+      "role": "jardinero",
+      "color": "#b85a18",
+      "clues": [
+        {
+          "kind": "row",
+          "id": 2
+        },
+        {
+          "kind": "area",
+          "id": 1
+        },
+        {
+          "kind": "beside",
+          "object": "planta"
+        },
+        {
+          "kind": "corner",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": "luz",
+      "name": "Luz Serra",
+      "role": "clienta",
+      "color": "#8c6410",
+      "clues": [
+        {
+          "kind": "row",
+          "id": 3
+        },
+        {
+          "kind": "on",
+          "object": "alfombra"
+        }
+      ]
+    },
+    {
+      "id": "teo",
+      "name": "Teo Costa",
+      "role": "repartidor",
+      "color": "#2f8f55",
+      "clues": [
+        {
+          "kind": "south",
+          "of": "luz"
+        },
+        {
+          "kind": "col",
+          "id": 6
+        },
+        {
+          "kind": "area",
+          "id": 2
+        }
+      ]
+    },
+    {
+      "id": "paz",
+      "name": "Paz Rivas",
+      "role": "socia",
+      "color": "#2a7f86",
+      "clues": [
+        {
+          "kind": "row",
+          "id": 5
+        },
+        {
+          "kind": "on",
+          "object": "silla"
+        },
+        {
+          "kind": "area",
+          "id": 3
+        }
+      ]
+    },
+    {
+      "id": "gael",
+      "name": "Gael Vidal",
+      "role": "transportista",
+      "color": "#3a6fbe",
+      "clues": [
+        {
+          "kind": "south",
+          "of": "paz"
+        },
+        {
+          "kind": "on",
+          "object": "sofa"
+        },
+        {
+          "kind": "area",
+          "id": 4
+        }
+      ]
+    }
+  ],
+  "caseClues": [],
+  "solution": {
+    "nora": [
+      1,
+      2
+    ],
+    "ivan": [
+      2,
+      5
+    ],
+    "luz": [
+      3,
+      0
+    ],
+    "teo": [
+      4,
+      6
+    ],
+    "paz": [
+      5,
+      3
+    ],
+    "gael": [
+      6,
+      4
+    ]
+  }
+}

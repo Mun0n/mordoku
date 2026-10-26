@@ -1,0 +1,362 @@
+{
+  "id": "taller",
+  "title": "El taller",
+  "difficulty": "very_easy",
+  "blurb": "El gato hidráulico aguantaba el coche. A Martín, no.",
+  "size": 6,
+  "areas": [
+    {
+      "id": 0,
+      "name": "el Banco",
+      "color": "#f3d7c0",
+      "cells": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2
+        ]
+      ]
+    },
+    {
+      "id": 1,
+      "name": "la Pintura",
+      "color": "#f6d2e2",
+      "cells": [
+        [
+          0,
+          3
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          5
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ]
+      ]
+    },
+    {
+      "id": 2,
+      "name": "el Hall",
+      "color": "#c5daf3",
+      "cells": [
+        [
+          2,
+          0
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          5
+        ]
+      ]
+    },
+    {
+      "id": 3,
+      "name": "el Foso",
+      "color": "#d5ebe4",
+      "cells": [
+        [
+          4,
+          0
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          5,
+          0
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          5,
+          3
+        ]
+      ]
+    },
+    {
+      "id": 4,
+      "name": "el Cuarto",
+      "color": "#e4d2f4",
+      "cells": [
+        [
+          4,
+          4
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          4
+        ],
+        [
+          5,
+          5
+        ]
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "r": 1,
+      "c": 5,
+      "kind": "silla"
+    },
+    {
+      "r": 1,
+      "c": 3,
+      "kind": "planta"
+    },
+    {
+      "r": 2,
+      "c": 0,
+      "kind": "alfombra"
+    },
+    {
+      "r": 2,
+      "c": 5,
+      "kind": "mesa"
+    },
+    {
+      "r": 3,
+      "c": 2,
+      "kind": "silla"
+    },
+    {
+      "r": 4,
+      "c": 1,
+      "kind": "silla"
+    },
+    {
+      "r": 5,
+      "c": 0,
+      "kind": "estanteria"
+    }
+  ],
+  "blocked": [
+    [
+      1,
+      3
+    ],
+    [
+      2,
+      5
+    ],
+    [
+      5,
+      0
+    ]
+  ],
+  "victim": {
+    "id": "martin",
+    "name": "Martín Gil",
+    "role": "mecánico",
+    "color": "#6b6258",
+    "cell": [
+      0,
+      4
+    ]
+  },
+  "suspects": [
+    {
+      "id": "rita",
+      "name": "Rita Soler",
+      "role": "clienta",
+      "color": "#c4476a",
+      "clues": [
+        {
+          "kind": "row",
+          "id": 1
+        },
+        {
+          "kind": "on",
+          "object": "silla"
+        },
+        {
+          "kind": "area",
+          "id": 1
+        }
+      ]
+    },
+    {
+      "id": "oscar",
+      "name": "Óscar Vidal",
+      "role": "aprendiz",
+      "color": "#b85a18",
+      "clues": [
+        {
+          "kind": "row",
+          "id": 2
+        },
+        {
+          "kind": "on",
+          "object": "alfombra"
+        }
+      ]
+    },
+    {
+      "id": "nuria",
+      "name": "Nuria Cid",
+      "role": "proveedora",
+      "color": "#8c6410",
+      "clues": [
+        {
+          "kind": "row",
+          "id": 3
+        },
+        {
+          "kind": "on",
+          "object": "silla"
+        }
+      ]
+    },
+    {
+      "id": "leo",
+      "name": "Leo Rivas",
+      "role": "chapista",
+      "color": "#2f8f55",
+      "clues": [
+        {
+          "kind": "row",
+          "id": 4
+        },
+        {
+          "kind": "on",
+          "object": "silla"
+        },
+        {
+          "kind": "area",
+          "id": 3
+        }
+      ]
+    },
+    {
+      "id": "gala",
+      "name": "Gala Mora",
+      "role": "administrativa",
+      "color": "#2a7f86",
+      "clues": [
+        {
+          "kind": "row",
+          "id": 5
+        },
+        {
+          "kind": "col",
+          "id": 3
+        }
+      ]
+    }
+  ],
+  "caseClues": [],
+  "solution": {
+    "rita": [
+      1,
+      5
+    ],
+    "oscar": [
+      2,
+      0
+    ],
+    "nuria": [
+      3,
+      2
+    ],
+    "leo": [
+      4,
+      1
+    ],
+    "gala": [
+      5,
+      3
+    ]
+  }
+}
