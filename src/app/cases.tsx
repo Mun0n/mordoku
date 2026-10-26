@@ -9,6 +9,7 @@ import { cases, DIFFICULTY_LABEL, DIFFICULTY_ORDER } from '@/content/cases';
 import { Spacing } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
 import { loadProgress, type CaseStatus, type ProgressFile } from '@/storage/progress';
+import { ScreenBar } from '@/ui/Bar';
 
 export default function CasesScreen() {
   const theme = useTheme();
@@ -27,16 +28,17 @@ export default function CasesScreen() {
     }, []),
   );
 
+  const open = cases.filter((puzzle) => {
+    const status = progress[puzzle.id]?.status ?? 'new';
+    return status === 'new' || status === 'in_progress';
+  }).length;
+  const hint = open === 0 ? 'Todos cerrados' : open === cases.length ? `${cases.length} casos` : `${open} por cerrar`;
+
   return (
     <ThemedView style={styles.fill}>
       <SafeAreaView style={styles.fill} edges={['top', 'bottom']}>
+        <ScreenBar title="Nueva partida" hint={hint} backLabel="Menú" onBack={() => router.back()} />
         <ScrollView contentContainerStyle={styles.content}>
-          <Pressable onPress={() => router.back()} hitSlop={8}>
-            <ThemedText themeColor="accent">Menú</ThemedText>
-          </Pressable>
-          <ThemedText type="title" style={styles.title}>
-            Nueva partida
-          </ThemedText>
           {DIFFICULTY_ORDER.map((difficulty) => (
             <View key={difficulty} style={styles.group}>
               <ThemedText type="smallBold">{DIFFICULTY_LABEL[difficulty]}</ThemedText>
@@ -87,10 +89,10 @@ const styles = StyleSheet.create({
   fill: { flex: 1 },
   content: {
     paddingHorizontal: Spacing.three,
+    paddingTop: Spacing.three,
     paddingBottom: Spacing.five,
     gap: Spacing.three,
   },
-  title: { fontSize: 34, lineHeight: 38 },
   group: { gap: Spacing.two },
   card: {
     borderRadius: 16,

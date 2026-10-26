@@ -406,16 +406,16 @@ function windows(puzzle: Puzzle, cell: number) {
     for (const side of ['n', 's', 'e', 'w'] as const) {
       const run = longestRun(area.cells, puzzle.size, side);
       if (!run) continue;
-      const span = (run.end - run.start + 1) * cell;
-      const along = PAD + run.start * cell + span / 2;
-      const win = Math.min(span * 0.42, cell * 0.72);
+      const at = Math.floor((run.start + run.end) / 2);
+      const win = cell * 0.62;
+      const along = PAD + at * cell + (cell - win) / 2;
       const thick = Math.max(9, cell * 0.2);
       if (side === 'n' || side === 's') {
         const y = side === 'n' ? PAD - thick / 2 : PAD + puzzle.size * cell - thick / 2;
-        nodes.push(<Window key={`${area.id}-${side}`} x={along - win / 2} y={y} w={win} h={thick} vertical={false} />);
+        nodes.push(<Window key={`${area.id}-${side}`} x={along} y={y} w={win} h={thick} vertical={false} />);
       } else {
         const x = side === 'w' ? PAD - thick / 2 : PAD + puzzle.size * cell - thick / 2;
-        nodes.push(<Window key={`${area.id}-${side}`} x={x} y={along - win / 2} w={thick} h={win} vertical />);
+        nodes.push(<Window key={`${area.id}-${side}`} x={x} y={along} w={thick} h={win} vertical />);
       }
     }
   }

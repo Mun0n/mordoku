@@ -1,13 +1,22 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useEffect, useState } from 'react';
-import { Alert, Pressable, ScrollView, StyleSheet, useWindowDimensions, View } from 'react-native';
+import { useEffect, useRef, useState } from 'react';
+import {
+  Alert,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  useWindowDimensions,
+  View,
+  type LayoutChangeEvent,
+  type ScrollViewInstance,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Svg, { Path } from 'react-native-svg';
 
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { caseById } from '@/content/cases';
 import { Spacing } from '@/constants/theme';
-import { hint } from '@/engine/analyze';
 import { check, placementBlock } from '@/engine/check';
 import { clueSentence } from '@/engine/text';
 import { gridOf } from '@/engine/grid';
@@ -23,9 +32,11 @@ import {
 } from '@/game/state';
 import { useTheme } from '@/hooks/use-theme';
 import { loadProgress, readProgress, writeCase, type CaseStatus } from '@/storage/progress';
+import { BarButton, ScreenBar } from '@/ui/Bar';
 import { Board } from '@/ui/Board';
 import { CaseClueCard, ClueCard } from '@/ui/ClueCard';
-import { blockMessage, checkMessage, hintMessage, tapNo, tapOk, tapWin } from '@/ui/copy';
+import { Dossier } from '@/ui/Dossier';
+import { blockMessage, checkMessage, tapNo, tapOk, tapWin } from '@/ui/copy';
 
 export default function CaseScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -45,11 +56,17 @@ function CasePlay({ puzzleId }: { puzzleId: string }) {
   const theme = useTheme();
   const router = useRouter();
   const { width, height } = useWindowDimensions();
+  const wide = width > height;
   const [state, setState] = useState<GameState>(() => freshGame(puzzle));
   const [status, setStatus] = useState<CaseStatus>('new');
   const [ready, setReady] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(puzzle.suspects[0]?.id ?? null);
   const [message, setMessage] = useState<string | null>(null);
+  const [dossier, setDossier] = useState(false);
+  const [boardWidth, setBoardWidth] = useState(0);
+  const [cardsColumn, setCardsColumn] = useState(() => width - Spacing.three * 2);
+  const cardsRef = useRef<ScrollViewInstance>(null);
+  const cardOffsets = useRef<Record<string, number>>({});
 
   useEffect(() => {
     let live = true;
@@ -58,6 +75,7 @@ function CasePlay({ puzzleId }: { puzzleId: string }) {
       const saved = readProgress(puzzle, file[puzzle.id]);
       setState({ placements: saved.placements, notes: saved.notes, undo: [] });
       setStatus(saved.status);
+      setDossier(saved.status === 'new');
       setReady(true);
     });
     return () => {
@@ -83,7 +101,7 @@ function CasePlay({ puzzleId }: { puzzleId: string }) {
   function onTap(r: number, c: number) {
     const occupant = suspectAt(state.placements, r, c);
     if (!selectedId) {
-      if (occupant) setSelectedId(occupant);
+      if (occupant) selectFromBoard(occupant);
       return;
     }
     const current = state.placements[selectedId];
@@ -93,7 +111,7 @@ function CasePlay({ puzzleId }: { puzzleId: string }) {
       return;
     }
     if (occupant && occupant !== selectedId) {
-      setSelectedId(occupant);
+      selectFromBoard(occupant);
       return;
     }
     const block = placementBlock(puzzle, state.placements, selectedId, { r, c });
@@ -133,16 +151,26 @@ function CasePlay({ puzzleId }: { puzzleId: string }) {
     ]);
   }
 
-  function onHint() {
-    const result = hint(puzzle, state.placements);
-    if (result.type === 'forced') {
-      commit(placePerson(state, result.personId, result.cell), edited(status), hintMessage(puzzle, result));
-      setSelectedId(result.personId);
-      tapOk();
-      return;
-    }
-    setMessage(hintMessage(puzzle, result));
-    if (result.type === 'broken') tapNo();
+  function selectFromBoard(id: string) {
+    setSelectedId(id);
+    requestAnimationFrame(() => {
+      const y = cardOffsets.current[id];
+      if (y == null) return;
+      cardsRef.current?.scrollTo({ y: Math.max(0, y - 4), animated: true });
+    });
+  }
+
+  function onMapLayout(event: LayoutChangeEvent) {
+    const { width: slotW, height: slotH } = event.nativeEvent.layout;
+    const next = Math.floor(Math.min(slotW, slotH, 560));
+    setBoardWidth((prev) => (prev === next ? prev : next));
+  }
+
+  function onCardsLayout(event: LayoutChangeEvent) {
+    const pad = wide ? Spacing.two : 0;
+    const next = Math.floor(event.nativeEvent.layout.width - pad);
+    if (next <= 0) return;
+    setCardsColumn((prev) => (prev === next ? prev : next));
   }
 
   function onReveal() {
@@ -173,8 +201,9 @@ function CasePlay({ puzzleId }: { puzzleId: string }) {
   }
 
   const full = puzzle.suspects.every((suspect) => state.placements[suspect.id]);
-  const boardWidth = Math.min(width - Spacing.three * 2, 560, height * 0.48);
-  const cardWidth = Math.floor((width - Spacing.three * 2 - 14) / 2);
+  const cardGap = 10;
+  const cardColumns = cardsColumn >= 300 ? 3 : cardsColumn >= 200 ? 2 : 1;
+  const cardWidth = Math.floor((cardsColumn - cardGap * (cardColumns - 1)) / cardColumns);
   const grid = gridOf(puzzle);
   const selected = puzzle.suspects.find((suspect) => suspect.id === selectedId);
 
@@ -183,82 +212,115 @@ function CasePlay({ puzzleId }: { puzzleId: string }) {
   return (
     <ThemedView style={styles.fill}>
       <SafeAreaView style={styles.fill} edges={['top', 'bottom']}>
-        <View style={styles.topBar}>
-          <Pressable onPress={() => router.back()} hitSlop={8}>
-            <ThemedText themeColor="accent">Volver</ThemedText>
-          </Pressable>
-          <ThemedText type="smallBold" numberOfLines={1} style={styles.topTitle}>
-            {puzzle.title}
-          </ThemedText>
-          <Pressable onPress={onUndo} hitSlop={8} disabled={state.undo.length === 0}>
-            <ThemedText themeColor={state.undo.length ? 'accent' : 'textSecondary'}>Deshacer</ThemedText>
-          </Pressable>
-        </View>
-        <ScrollView contentContainerStyle={styles.scroll}>
-          {status === 'revealed' ? (
-            <ThemedText type="small" themeColor="accent">
-              Solución vista
-            </ThemedText>
-          ) : null}
-          {message ? <ThemedText>{message}</ThemedText> : null}
-          <ThemedText type="small" themeColor="textSecondary">
-            {selected ? selected.name : 'Elige a alguien'}. Mantén pulsado para anotar.
-          </ThemedText>
-          <Board
-            puzzle={puzzle}
-            placements={state.placements}
-            notes={state.notes}
-            selectedId={selectedId}
-            width={boardWidth}
-            onTap={onTap}
-            onLongPress={onLongPress}
-          />
-          <View style={styles.cards}>
-            <ClueCard
-              name={puzzle.victim.name}
-              seed={puzzle.victim.id}
-              shirt="#6b6258"
-              width={cardWidth}
-              victim
-              lines={[
-                'La víctima.',
-                `Fila ${puzzle.victim.cell.r + 1}, columna ${puzzle.victim.cell.c + 1}.`,
-                grid.areaName.get(grid.victimArea) ?? 'Sala desconocida',
-              ]}
-            />
-            {puzzle.suspects.map((suspect) => (
-              <ClueCard
-                key={suspect.id}
-                name={suspect.name}
-                seed={suspect.id}
-                shirt={suspect.color}
-                width={cardWidth}
-                selected={suspect.id === selectedId}
-                lines={suspect.clues.map((clue) => clueSentence(puzzle, clue))}
-                onPress={() => setSelectedId((current) => (current === suspect.id ? null : suspect.id))}
-              />
-            ))}
-            <CaseClueCard puzzle={puzzle} clues={puzzle.caseClues} width={width - Spacing.three * 2} />
-          </View>
-          <View style={styles.legend}>
-            {puzzle.areas.map((area) => (
-              <View key={area.id} style={styles.legendItem}>
-                <View style={[styles.swatch, { backgroundColor: area.color }]} />
-                <ThemedText type="small">{area.name}</ThemedText>
+        <ScreenBar
+          title={puzzle.title}
+          hint={dossier ? 'La historia' : status === 'revealed' ? 'Solución vista' : status === 'solved' ? 'Resuelto' : undefined}
+          hintColor={dossier ? 'textSecondary' : 'accent'}
+          backLabel="Volver"
+          onBack={() => router.back()}
+          trailing={
+            <>
+              <BarButton label="Historia" on={dossier} onPress={() => setDossier((open) => !open)}>
+                <BookIcon color={theme.text} />
+              </BarButton>
+              <BarButton label="Deshacer" onPress={onUndo} disabled={state.undo.length === 0}>
+                <UndoIcon color={theme.text} />
+              </BarButton>
+            </>
+          }
+        />
+        <View style={styles.stage}>
+        <View style={[styles.play, wide && styles.playWide]}>
+          <View style={[styles.mapColumn, wide ? styles.mapColumnWide : styles.mapColumnTall]}>
+            {message ? (
+              <View style={styles.head}>
+                <ThemedText numberOfLines={3}>{message}</ThemedText>
               </View>
-            ))}
+            ) : null}
+            <View style={styles.mapSlot} onLayout={onMapLayout}>
+              {boardWidth > 0 ? (
+                <Board
+                  puzzle={puzzle}
+                  placements={state.placements}
+                  notes={state.notes}
+                  selectedId={selectedId}
+                  width={boardWidth}
+                  onTap={onTap}
+                  onLongPress={onLongPress}
+                />
+              ) : null}
+            </View>
+            <ThemedText type="small" themeColor="textSecondary" numberOfLines={2} style={styles.selection}>
+              {selectionHint(selected?.name)}
+            </ThemedText>
           </View>
-        </ScrollView>
+          <ScrollView
+            ref={cardsRef}
+            style={[
+              styles.cardsScroll,
+              {
+                borderColor: theme.backgroundSelected,
+                borderTopWidth: wide ? 0 : StyleSheet.hairlineWidth,
+                borderLeftWidth: wide ? StyleSheet.hairlineWidth : 0,
+              },
+            ]}
+            onLayout={onCardsLayout}
+            contentContainerStyle={[
+              styles.scroll,
+              { paddingLeft: wide ? Spacing.two : 0, paddingTop: wide ? 0 : Spacing.two },
+            ]}
+          >
+            <View style={[styles.cards, { gap: cardGap }]}>
+              <ClueCard
+                name={puzzle.victim.name}
+                seed={puzzle.victim.id}
+                shirt="#6b6258"
+                width={cardWidth}
+                victim
+                lines={[
+                  'La víctima.',
+                  `Fila ${puzzle.victim.cell.r + 1}, columna ${puzzle.victim.cell.c + 1}.`,
+                  grid.areaName.get(grid.victimArea) ?? 'Sala desconocida',
+                ]}
+              />
+              {puzzle.suspects.map((suspect) => (
+                <View
+                  key={suspect.id}
+                  onLayout={(event) => {
+                    cardOffsets.current[suspect.id] = event.nativeEvent.layout.y;
+                  }}
+                  style={{ width: cardWidth }}
+                >
+                  <ClueCard
+                    name={suspect.name}
+                    seed={suspect.id}
+                    shirt={suspect.color}
+                    width={cardWidth}
+                    selected={suspect.id === selectedId}
+                    lines={suspect.clues.map((clue) => clueSentence(puzzle, clue))}
+                    onPress={() => setSelectedId((current) => (current === suspect.id ? null : suspect.id))}
+                  />
+                </View>
+              ))}
+              <CaseClueCard puzzle={puzzle} clues={puzzle.caseClues} width={cardsColumn} />
+            </View>
+          </ScrollView>
+        </View>
         <View style={[styles.actions, { borderTopColor: theme.backgroundSelected }]}>
-          <Action label="Ayuda" onPress={onHint} />
-          <Action label="Solución" onPress={onReveal} />
+          <Action label="Reiniciar" onPress={onReset} />
           <Action label="Acusar" onPress={onAccuse} disabled={!full} filled />
         </View>
-        <Pressable onPress={onReset} style={styles.reset}>
+        <Pressable onPress={onReveal} style={styles.quiet}>
           <ThemedText type="small" themeColor="textSecondary">
-            Reiniciar
+            Solución
           </ThemedText>
         </Pressable>
+        {dossier ? (
+          <View style={[styles.dossier, { backgroundColor: theme.background }]}>
+            <Dossier puzzle={puzzle} onClose={() => setDossier(false)} />
+          </View>
+        ) : null}
+        </View>
       </SafeAreaView>
     </ThemedView>
   );
@@ -297,6 +359,48 @@ function Action({
   );
 }
 
+function selectionHint(name: string | undefined): string {
+  if (!name) return 'Elige a alguien. Mantén pulsado para anotar.';
+  return `${name}. Mantén pulsado para anotar.`;
+}
+
+function BookIcon({ color }: { color: string }) {
+  return (
+    <Svg width={22} height={22} viewBox="0 0 24 24">
+      <Path
+        d="M12 7.2 C9.4 6 6.4 6.6 4.8 7.6 V17.8 C6.6 16.6 9.4 16.2 12 17.6 C14.6 16.2 17.4 16.6 19.2 17.8 V7.6 C17.6 6.6 14.6 6 12 7.2 Z"
+        fill="none"
+        stroke={color}
+        strokeWidth={1.8}
+        strokeLinejoin="round"
+      />
+      <Path d="M12 7.2 V17.6" fill="none" stroke={color} strokeWidth={1.8} strokeLinecap="round" />
+    </Svg>
+  );
+}
+
+function UndoIcon({ color }: { color: string }) {
+  return (
+    <Svg width={22} height={22} viewBox="0 0 24 24">
+      <Path
+        d="M9 8 H14.5 A4.5 4.5 0 1 1 14.5 17 H11"
+        fill="none"
+        stroke={color}
+        strokeWidth={2.2}
+        strokeLinecap="round"
+      />
+      <Path
+        d="M9 4.8 L5.2 8 L9 11.2"
+        fill="none"
+        stroke={color}
+        strokeWidth={2.2}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </Svg>
+  );
+}
+
 function suspectAt(placements: Assignment, r: number, c: number): string | null {
   for (const [id, cell] of Object.entries(placements)) {
     if (cell && cell.r === r && cell.c === c) return id;
@@ -306,38 +410,41 @@ function suspectAt(placements: Assignment, r: number, c: number): string | null 
 
 const styles = StyleSheet.create({
   fill: { flex: 1 },
+  stage: { flex: 1 },
+  dossier: { position: 'absolute', top: 0, right: 0, bottom: 0, left: 0 },
   missing: { padding: Spacing.four },
-  topBar: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+  play: {
+    flex: 1,
+    minHeight: 0,
     paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.two,
     gap: Spacing.two,
   },
-  topTitle: { flex: 1, textAlign: 'center' },
+  playWide: { flexDirection: 'row', alignItems: 'stretch' },
+  mapColumn: { minWidth: 0, minHeight: 0, gap: Spacing.two },
+  mapColumnTall: { flex: 1.05, alignSelf: 'stretch' },
+  mapColumnWide: { flex: 1.05 },
+  head: { alignSelf: 'stretch', gap: 4 },
+  selection: { textAlign: 'center', alignSelf: 'stretch' },
+  mapSlot: {
+    flex: 1,
+    minHeight: 0,
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
+  },
+  cardsScroll: { flex: 1, minWidth: 0, minHeight: 0, alignSelf: 'stretch' },
   scroll: {
     alignItems: 'center',
-    paddingHorizontal: Spacing.three,
     gap: Spacing.two,
-    paddingBottom: Spacing.two,
+    paddingBottom: Spacing.three,
   },
-  legend: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    gap: Spacing.two,
-  },
-  legendItem: { flexDirection: 'row', alignItems: 'center', gap: 6 },
-  swatch: { width: 12, height: 12, borderRadius: 3 },
   cards: {
     width: '100%',
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'flex-start',
     justifyContent: 'center',
-    gap: 14,
-    paddingTop: Spacing.two,
   },
   actions: {
     flexDirection: 'row',
@@ -354,5 +461,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: 4,
   },
-  reset: { alignItems: 'center', paddingVertical: Spacing.two },
+  quiet: { alignItems: 'center', paddingVertical: Spacing.two },
 });

@@ -14,7 +14,7 @@ const RULES = [
   'Una persona por fila y por columna. La víctima ocupa la suya y también cuenta.',
   'El asesino es la única persona viva en la sala de la víctima. No hace falta que esté pegada a ella.',
   'Las pistas dicen dónde estaba cada cual. Ninguna dice quién es el asesino.',
-  'Cierra el tablero antes de acusar. La ayuda revela una casilla forzada; la solución, el caso entero.',
+  'Cierra el tablero antes de acusar. Si te rindes, la solución rellena el caso entero.',
 ];
 
 const OBJECT_LABEL: Record<ObjectKind, string> = {
