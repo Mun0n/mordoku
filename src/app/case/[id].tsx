@@ -2,6 +2,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
 import {
   Alert,
+  Animated,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -61,7 +62,7 @@ function CasePlay({ puzzleId }: { puzzleId: string }) {
   const [status, setStatus] = useState<CaseStatus>('new');
   const [ready, setReady] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(puzzle.suspects[0]?.id ?? null);
-  const [message, setMessage] = useState<string | null>(null);
+  const [toast, setToast] = useState<{ id: number; text: string } | null>(null);
   const [dossier, setDossier] = useState(false);
   const [boardWidth, setBoardWidth] = useState(0);
   const [cardsColumn, setCardsColumn] = useState(() => width - Spacing.three * 2);
@@ -83,10 +84,14 @@ function CasePlay({ puzzleId }: { puzzleId: string }) {
     };
   }, [puzzle]);
 
-  function commit(next: GameState, nextStatus: CaseStatus, banner: string | null = message) {
+  function showToast(text: string | null) {
+    setToast(text ? { id: Date.now(), text } : null);
+  }
+
+  function commit(next: GameState, nextStatus: CaseStatus, banner: string | null = null) {
     setState(next);
     setStatus(nextStatus);
-    setMessage(banner);
+    showToast(banner);
     void writeCase(puzzle.id, {
       placements: next.placements,
       notes: next.notes,
@@ -116,7 +121,7 @@ function CasePlay({ puzzleId }: { puzzleId: string }) {
     }
     const block = placementBlock(puzzle, state.placements, selectedId, { r, c });
     if (block) {
-      setMessage(blockMessage(block));
+      showToast(blockMessage(block));
       tapNo();
       return;
     }
@@ -191,7 +196,7 @@ function CasePlay({ puzzleId }: { puzzleId: string }) {
   function onAccuse() {
     const result = check(puzzle, state.placements);
     if (!result.ok) {
-      setMessage(checkMessage(puzzle, result));
+      showToast(checkMessage(puzzle, result));
       tapNo();
       return;
     }
@@ -232,11 +237,6 @@ function CasePlay({ puzzleId }: { puzzleId: string }) {
         <View style={styles.stage}>
         <View style={[styles.play, wide && styles.playWide]}>
           <View style={[styles.mapColumn, wide ? styles.mapColumnWide : styles.mapColumnTall]}>
-            {message ? (
-              <View style={styles.head}>
-                <ThemedText numberOfLines={3}>{message}</ThemedText>
-              </View>
-            ) : null}
             <View style={styles.mapSlot} onLayout={onMapLayout}>
               {boardWidth > 0 ? (
                 <Board
@@ -305,6 +305,13 @@ function CasePlay({ puzzleId }: { puzzleId: string }) {
               <CaseClueCard puzzle={puzzle} clues={puzzle.caseClues} width={cardsColumn} />
             </View>
           </ScrollView>
+          {toast ? (
+            <PlayToast
+              key={toast.id}
+              text={toast.text}
+              onDone={() => setToast((current) => (current?.id === toast.id ? null : current))}
+            />
+          ) : null}
         </View>
         <View style={[styles.actions, { borderTopColor: theme.backgroundSelected }]}>
           <Action label="Reiniciar" onPress={onReset} />
@@ -362,6 +369,33 @@ function Action({
 function selectionHint(name: string | undefined): string {
   if (!name) return 'Elige a alguien. Mantén pulsado para anotar.';
   return `${name}. Mantén pulsado para anotar.`;
+}
+
+function PlayToast({ text, onDone }: { text: string; onDone: () => void }) {
+  const theme = useTheme();
+  const opacity = useRef(new Animated.Value(0)).current;
+  const done = useRef(onDone);
+  done.current = onDone;
+
+  useEffect(() => {
+    const anim = Animated.sequence([
+      Animated.timing(opacity, { toValue: 1, duration: 160, useNativeDriver: true }),
+      Animated.delay(2800),
+      Animated.timing(opacity, { toValue: 0, duration: 240, useNativeDriver: true }),
+    ]);
+    anim.start(({ finished }) => {
+      if (finished) done.current();
+    });
+    return () => anim.stop();
+  }, [opacity]);
+
+  return (
+    <Animated.View pointerEvents="none" style={[styles.toastWrap, { opacity }]}>
+      <View style={[styles.toast, { backgroundColor: theme.text }]}>
+        <ThemedText style={{ color: theme.background, textAlign: 'center' }}>{text}</ThemedText>
+      </View>
+    </Animated.View>
+  );
 }
 
 function BookIcon({ color }: { color: string }) {
@@ -423,7 +457,6 @@ const styles = StyleSheet.create({
   mapColumn: { minWidth: 0, minHeight: 0, gap: Spacing.two },
   mapColumnTall: { flex: 1.05, alignSelf: 'stretch' },
   mapColumnWide: { flex: 1.05 },
-  head: { alignSelf: 'stretch', gap: 4 },
   selection: { textAlign: 'center', alignSelf: 'stretch' },
   mapSlot: {
     flex: 1,
@@ -462,4 +495,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 4,
   },
   quiet: { alignItems: 'center', paddingVertical: Spacing.two },
+  toastWrap: {
+    position: 'absolute',
+    left: Spacing.three,
+    right: Spacing.three,
+    bottom: Spacing.two,
+  },
+  toast: {
+    borderRadius: 14,
+    paddingHorizontal: Spacing.three,
+    paddingVertical: Spacing.two,
+  },
 });
