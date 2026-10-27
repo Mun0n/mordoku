@@ -20,7 +20,6 @@ import { caseById } from '@/content/cases';
 import { Spacing } from '@/constants/theme';
 import { check, placementBlock } from '@/engine/check';
 import { clueSentence } from '@/engine/text';
-import { gridOf } from '@/engine/grid';
 import type { Assignment } from '@/engine/types';
 import {
   freshGame,
@@ -209,7 +208,6 @@ function CasePlay({ puzzleId }: { puzzleId: string }) {
   const cardGap = 10;
   const cardColumns = cardsColumn >= 300 ? 3 : cardsColumn >= 200 ? 2 : 1;
   const cardWidth = Math.floor((cardsColumn - cardGap * (cardColumns - 1)) / cardColumns);
-  const grid = gridOf(puzzle);
   const selected = puzzle.suspects.find((suspect) => suspect.id === selectedId);
 
   if (!ready) return <ThemedView style={styles.fill} />;
@@ -277,11 +275,7 @@ function CasePlay({ puzzleId }: { puzzleId: string }) {
                 shirt="#6b6258"
                 width={cardWidth}
                 victim
-                lines={[
-                  'La víctima.',
-                  `Fila ${puzzle.victim.cell.r + 1}, columna ${puzzle.victim.cell.c + 1}.`,
-                  grid.areaName.get(grid.victimArea) ?? 'Sala desconocida',
-                ]}
+                lines={['La víctima.', roleLine(puzzle.victim.role)]}
               />
               {puzzle.suspects.map((suspect) => (
                 <View
@@ -369,6 +363,11 @@ function Action({
 function selectionHint(name: string | undefined): string {
   if (!name) return 'Elige a alguien. Mantén pulsado para anotar.';
   return `${name}. Mantén pulsado para anotar.`;
+}
+
+function roleLine(role: string): string {
+  const head = Array.from(role)[0] ?? '';
+  return `${head.toLocaleUpperCase('es-ES')}${role.slice(head.length)}.`;
 }
 
 function PlayToast({ text, onDone }: { text: string; onDone: () => void }) {

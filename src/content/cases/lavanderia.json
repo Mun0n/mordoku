@@ -2,7 +2,7 @@
   "id": "lavanderia",
   "title": "La lavandería",
   "difficulty": "very_easy",
-  "blurb": "La última colada salió sola. Rosa no.",
+  "blurb": "La última colada salió sola. Elvira no.",
   "size": 6,
   "areas": [
     {
@@ -231,7 +231,7 @@
   ],
   "victim": {
     "id": "rosa",
-    "name": "Rosa Vidal",
+    "name": "Elvira Montes",
     "role": "encargada",
     "color": "#6b6258",
     "cell": [
@@ -242,90 +242,114 @@
   "suspects": [
     {
       "id": "nora",
-      "name": "Nora Gil",
-      "role": "clienta",
+      "name": "Jaime Cruz",
+      "role": "cliente",
       "color": "#c4476a",
       "clues": [
-        {
-          "kind": "row",
-          "id": 0
-        },
         {
           "kind": "on",
           "object": "silla"
         },
         {
-          "kind": "area",
-          "id": 0
+          "kind": "west",
+          "of": "berta"
+        },
+        {
+          "kind": "north",
+          "of": "luz"
         }
       ]
     },
     {
       "id": "ivan",
-      "name": "Iván Mora",
-      "role": "técnico",
+      "name": "Patricia León",
+      "role": "técnica",
       "color": "#b85a18",
       "clues": [
         {
-          "kind": "row",
-          "id": 2
+          "kind": "area",
+          "id": 2,
+          "negate": true
         },
         {
-          "kind": "area",
-          "id": 1
+          "kind": "north",
+          "of": "luz"
+        },
+        {
+          "kind": "east",
+          "of": "rosa"
         }
       ]
     },
     {
       "id": "luz",
-      "name": "Luz Serra",
-      "role": "vecina",
+      "name": "Omar Beltrán",
+      "role": "vecino",
       "color": "#8c6410",
       "clues": [
         {
-          "kind": "row",
-          "id": 3
+          "kind": "south",
+          "of": "ivan"
         },
         {
-          "kind": "on",
-          "object": "alfombra"
+          "kind": "north",
+          "of": "teo"
+        },
+        {
+          "kind": "west",
+          "of": "berta"
         }
       ]
     },
     {
       "id": "teo",
-      "name": "Teo Costa",
-      "role": "repartidor",
+      "name": "Diana Ferrer",
+      "role": "repartidora",
       "color": "#2f8f55",
       "clues": [
         {
-          "kind": "row",
-          "id": 4
-        },
-        {
           "kind": "on",
           "object": "silla"
+        },
+        {
+          "kind": "south",
+          "of": "luz"
+        },
+        {
+          "kind": "east",
+          "of": "ivan"
         }
       ]
     },
     {
       "id": "berta",
-      "name": "Berta Rivas",
-      "role": "cajera",
+      "name": "Lucas Amat",
+      "role": "cajero",
       "color": "#2a7f86",
       "clues": [
         {
-          "kind": "row",
-          "id": 5
+          "kind": "south",
+          "of": "teo"
         },
         {
-          "kind": "on",
-          "object": "sofa"
+          "kind": "south",
+          "of": "rosa"
+        },
+        {
+          "kind": "area",
+          "id": 0,
+          "negate": true
         }
       ]
     }
   ],
-  "caseClues": [],
+  "caseClues": [
+    {
+      "kind": "census",
+      "area": 2,
+      "count": 2
+    }
+  ],
   "solution": {
     "nora": [
       0,

@@ -2,7 +2,7 @@
   "id": "taller",
   "title": "El taller",
   "difficulty": "very_easy",
-  "blurb": "El gato hidráulico aguantaba el coche. A Martín, no.",
+  "blurb": "El gato hidráulico aguantaba el coche. A Ramón, no.",
   "size": 6,
   "areas": [
     {
@@ -238,7 +238,7 @@
   ],
   "victim": {
     "id": "martin",
-    "name": "Martín Gil",
+    "name": "Ramón Ibarra",
     "role": "mecánico",
     "color": "#6b6258",
     "cell": [
@@ -249,94 +249,118 @@
   "suspects": [
     {
       "id": "rita",
-      "name": "Rita Soler",
+      "name": "Laia Serra",
       "role": "clienta",
       "color": "#c4476a",
       "clues": [
         {
-          "kind": "row",
-          "id": 1
+          "kind": "north",
+          "of": "oscar"
+        },
+        {
+          "kind": "area",
+          "id": 2,
+          "negate": true
         },
         {
           "kind": "on",
           "object": "silla"
-        },
-        {
-          "kind": "area",
-          "id": 1
         }
       ]
     },
     {
       "id": "oscar",
-      "name": "Óscar Vidal",
+      "name": "Unai Gómez",
       "role": "aprendiz",
       "color": "#b85a18",
       "clues": [
         {
-          "kind": "row",
-          "id": 2
+          "kind": "south",
+          "of": "rita"
         },
         {
-          "kind": "on",
-          "object": "alfombra"
+          "kind": "west",
+          "of": "martin"
+        },
+        {
+          "kind": "area",
+          "id": 4,
+          "negate": true
         }
       ]
     },
     {
       "id": "nuria",
-      "name": "Nuria Cid",
+      "name": "Nerea Campos",
       "role": "proveedora",
       "color": "#8c6410",
       "clues": [
-        {
-          "kind": "row",
-          "id": 3
-        },
-        {
-          "kind": "on",
-          "object": "silla"
-        }
-      ]
-    },
-    {
-      "id": "leo",
-      "name": "Leo Rivas",
-      "role": "chapista",
-      "color": "#2f8f55",
-      "clues": [
-        {
-          "kind": "row",
-          "id": 4
-        },
         {
           "kind": "on",
           "object": "silla"
         },
         {
           "kind": "area",
-          "id": 3
+          "id": 0,
+          "negate": true
+        },
+        {
+          "kind": "south",
+          "of": "rita"
+        }
+      ]
+    },
+    {
+      "id": "leo",
+      "name": "Félix Mora",
+      "role": "chapista",
+      "color": "#2f8f55",
+      "clues": [
+        {
+          "kind": "on",
+          "object": "silla"
+        },
+        {
+          "kind": "south",
+          "of": "nuria"
+        },
+        {
+          "kind": "area",
+          "id": 2,
+          "negate": true
         }
       ]
     },
     {
       "id": "gala",
-      "name": "Gala Mora",
+      "name": "Vera Solé",
       "role": "administrativa",
       "color": "#2a7f86",
       "clues": [
         {
-          "kind": "row",
-          "id": 5
+          "kind": "south",
+          "of": "leo"
         },
         {
-          "kind": "col",
-          "id": 3
+          "kind": "area",
+          "id": 4,
+          "negate": true
+        },
+        {
+          "kind": "area",
+          "id": 2,
+          "negate": true
         }
       ]
     }
   ],
-  "caseClues": [],
+  "caseClues": [
+    {
+      "kind": "census",
+      "area": 3,
+      "count": 2
+    }
+  ],
   "solution": {
     "rita": [
       1,

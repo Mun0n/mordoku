@@ -1,5 +1,5 @@
 import { hint } from '@/engine/analyze';
-import { blankAssignment, check, placementBlock } from '@/engine/check';
+import { assignmentFromSolution, blankAssignment, bodyCell, check, placementBlock } from '@/engine/check';
 import { gridOf } from '@/engine/grid';
 import { assertUnique, solve } from '@/engine/solve';
 import { clueSentence } from '@/engine/text';
@@ -108,6 +108,11 @@ describe('motor', () => {
     if (!result.ok && result.reason === 'clue') {
       expect(result.ref).toEqual({ owner: 'person', personId: 'ana', index: 1 });
     }
+  });
+
+  test('el cuerpo aparece en la casilla libre', () => {
+    expect(bodyCell(puzzle, blankAssignment(puzzle))).toBeNull();
+    expect(bodyCell(puzzle, assignmentFromSolution(puzzle))).toEqual({ r: 0, c: 0 });
   });
 
   test('el caso de muestra tiene una sola solución', () => {

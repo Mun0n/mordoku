@@ -1,6 +1,6 @@
 # Fases
 
-La fase de prueba se cierra antes de tocar literatura. Este archivo es el recordatorio.
+La fase de prueba se cierra antes de tocar el tema. Este archivo es el recordatorio.
 
 ## Fase de prueba
 
@@ -8,7 +8,7 @@ La que está en la app: doce casos genéricos.
 
 kiosco, lavandería, aula, taller, hostal, bodega, invernadero, redacción, teatro, comisaría, mercado, faro.
 
-Son el banco del motor. No se reescriben como obras.
+Son el banco del motor. No se reescriben como visitas.
 
 Alcance:
 
@@ -20,46 +20,37 @@ Alcance:
 - Progreso en el dispositivo. Sin cuentas, sin red, sin anuncios, sin compras.
 - Pistas en plantillas. El texto no puede separarse de la regla.
 
-Fuera, también de la fase literaria hasta que se decida aparte: generador automático, tableros de 9×9 en adelante, una pista que miente, zoom, ranking, ilustración pintada.
+Fuera, también del tema hasta que se decida aparte: generador automático, tableros de 9×9 en adelante, una pista que miente, zoom, ranking, ilustración pintada.
 
 Para darla por ok: jugar un caso de punta a punta. Colocar, chocar una fila, anotar, cerrar la app, volver y ver el progreso. Acusar. Repetirlo en un caso ya revelado.
 
-## Después: una fase, un libro
+## Después: la escritora
 
-Decisión del 26 oct 2026. No se implementa hasta que la fase de prueba esté ok.
+Decisión del 26 oct 2026, por la noche. Sustituye a «una fase, un libro». No se implementa hasta que la fase de prueba esté ok.
 
-Cada fase posterior sale de un asesinato de una obra literaria. De esa obra salen los personajes, la historia previa y el asesinato.
+El tema es una escritora de novelas de misterio, al modo de un episodio de *Se ha escrito un crimen*. Cada caso es una visita: llega a un sitio cerrado, el reparto es el de esa casa, y el caso se cierra al acusar. Ella se repite. Los sospechosos no.
+
+Los crímenes, los nombres y los trucos se escriben para la app. No salen de un libro. Quien juega no necesita haber leído nada, y el tablero no desvela el final de ninguna novela.
 
 El motor no cambia: una persona por fila y columna, la víctima incluida; salas; objetos; el asesino es la única persona viva en la sala de la víctima.
 
+Los doce casos de prueba siguen siendo el banco. No se reescriben como visitas. Enseñan la planta: un sitio, un puñado de gente, una frase de entrada.
+
 Una fase lleva:
 
-- obra: título, autor, año, y si está en dominio público
-- reparto compartido
-- historia previa corta
-- casos en orden; el último es el asesinato
+- la escritora: nombre, oficio, una frase de quién es
+- casos sueltos; cada uno con su sitio, su reparto y una historia previa corta al abrirlo
 
-La home deja de ser solo dificultad cuando exista la primera fase literaria.
+La home deja de ser solo dificultad cuando exista la primera fase con ella.
 
 ### Derechos
 
-Nombres, trama previa y el crimen solo si el libro está en dominio público en España: vida del autor más 70 años.
+El formato de episodio acogedor no es de nadie. Jessica Fletcher, Cabot Cove y los capítulos de la serie no se usan.
 
-- Vale: Arthur Conan Doyle, muerto en 1930. Holmes en dominio público desde 2001. Gaston Leroux, muerto en 1927.
-- No vale todavía: Agatha Christie, muerta en 1976, hasta 2047.
-
-Usar los nombres y el asesinato de un libro con copyright es obra derivada, aunque se diga "inspirado en".
-
-### Piloto
-
-*El misterio del cuarto amarillo*, Gaston Leroux, 1907. Casa, pasillos, cuarto cerrado, reparto pequeño.
-
-Primero un solo caso, en el formato de tablero que ya existe, para ver si la planta cabe. El resto de la fase después.
-
-Holmes en una casa cerrada también vale. *La banda de lunares* encaja peor: el asesino no es una persona en la sala.
+Tampoco se adapta el crimen de un libro, aunque la obra esté en dominio público. Holmes y *El misterio del cuarto amarillo* quedan fuera por eso: el final ya está dicho, y varios de esos trucos ni caben en la sala.
 
 ### Orden cuando toque
 
-1. Esquema de fase en los tipos y en la home.
-2. Un caso piloto del Cuarto amarillo.
+1. La escritora en los tipos y en la home.
+2. Un caso piloto en el formato de tablero que ya existe, con ella de visita.
 3. El resto de esa fase.

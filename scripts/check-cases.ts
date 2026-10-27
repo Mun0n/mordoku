@@ -11,6 +11,19 @@ const expectedSize: Record<Difficulty, number> = {
   medium: 8,
 };
 
+const DEDUCED = new Set([
+  'kiosco',
+  'lavanderia',
+  'aula',
+  'taller',
+  'hostal',
+  'bodega',
+  'invernadero',
+  'redaccion',
+  'teatro',
+  'comisaria',
+]);
+
 const dir = join(process.cwd(), 'src/content/cases');
 const files = readdirSync(dir)
   .filter((file) => file.endsWith('.json'))
@@ -32,6 +45,15 @@ for (const file of files) {
     throw new Error(`${puzzle.id}: ${puzzle.difficulty} tiene que ser ${expectedSize[puzzle.difficulty]}×${expectedSize[puzzle.difficulty]}`);
   }
   assertUnique(puzzle);
+  if (DEDUCED.has(puzzle.id)) {
+    const kinds = [
+      ...puzzle.caseClues,
+      ...puzzle.suspects.flatMap((suspect) => suspect.clues),
+    ];
+    if (kinds.some((clue) => clue.kind === 'row' || clue.kind === 'col')) {
+      throw new Error(`${puzzle.id}: una pista dice la fila o la columna`);
+    }
+  }
   counts[puzzle.difficulty] += 1;
   console.log(`ok ${puzzle.id}`);
 }

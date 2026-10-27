@@ -37,6 +37,8 @@ const beside = (object: ObjectKind, negate?: boolean): Clue => ({ kind: 'beside'
 const corner = (negate?: boolean): Clue => ({ kind: 'corner', negate });
 const north = (of: string): Clue => ({ kind: 'north', of });
 const south = (of: string): Clue => ({ kind: 'south', of });
+const east = (of: string): Clue => ({ kind: 'east', of });
+const west = (of: string): Clue => ({ kind: 'west', of });
 const census = (areaId: number, count: number): Clue => ({ kind: 'census', area: areaId, count });
 
 const cases: Spec[] = [
@@ -65,19 +67,19 @@ const cases: Spec[] = [
     ],
     victim: { id: 'ines', name: 'Inés Lara', role: 'quiosquera', at: [0, 1] },
     people: [
-      { id: 'abel', name: 'Abel Ruiz', role: 'repartidor', at: [1, 0], clues: [row(1), on('silla'), area(0)] },
-      { id: 'bea', name: 'Bea Molina', role: 'clienta', at: [2, 3], clues: [row(2), on('alfombra')] },
-      { id: 'carlos', name: 'Carlos Vidal', role: 'vecino', at: [3, 5], clues: [row(3), col(5)] },
-      { id: 'dina', name: 'Dina Serra', role: 'sobrina', at: [4, 2], clues: [row(4), area(3), on('silla')] },
-      { id: 'eva', name: 'Eva Costa', role: 'contable', at: [5, 4], clues: [row(5), on('sofa'), area(4)] },
+      { id: 'abel', name: 'Mateo Ribas', role: 'repartidor', at: [1, 0], clues: [west('ines'), area(3, true)] },
+      { id: 'bea', name: 'Berta Calvo', role: 'clienta', at: [2, 3], clues: [area(3, true), south('abel')] },
+      { id: 'carlos', name: 'Hugo Paredes', role: 'vecino', at: [3, 5], clues: [beside('estanteria'), south('bea')] },
+      { id: 'dina', name: 'Silvia Navarro', role: 'sobrina', at: [4, 2], clues: [area(2, true), on('silla')] },
+      { id: 'eva', name: 'Andrés Vidal', role: 'contable', at: [5, 4], clues: [east('bea'), west('carlos')] },
     ],
-    caseClues: [],
+    caseClues: [census(3, 1)],
   },
   {
     id: 'lavanderia',
     title: 'La lavandería',
     difficulty: 'very_easy',
-    blurb: 'La última colada salió sola. Rosa no.',
+    blurb: 'La última colada salió sola. Elvira no.',
     map: ['mmmmss', 'mmmmss', 'mmmmss', 'dddddd', 'dddddd', 'cccccc'],
     rooms: {
       m: { id: 0, name: 'el Mostrador', color: '#f0c7b8' },
@@ -94,21 +96,21 @@ const cases: Spec[] = [
       { r: 4, c: 5, kind: 'silla' },
       { r: 5, c: 3, kind: 'sofa' },
     ],
-    victim: { id: 'rosa', name: 'Rosa Vidal', role: 'encargada', at: [1, 1] },
+    victim: { id: 'rosa', name: 'Elvira Montes', role: 'encargada', at: [1, 1] },
     people: [
-      { id: 'nora', name: 'Nora Gil', role: 'clienta', at: [0, 0], clues: [row(0), on('silla'), area(0)] },
-      { id: 'ivan', name: 'Iván Mora', role: 'técnico', at: [2, 4], clues: [row(2), area(1)] },
-      { id: 'luz', name: 'Luz Serra', role: 'vecina', at: [3, 2], clues: [row(3), on('alfombra')] },
-      { id: 'teo', name: 'Teo Costa', role: 'repartidor', at: [4, 5], clues: [row(4), on('silla')] },
-      { id: 'berta', name: 'Berta Rivas', role: 'cajera', at: [5, 3], clues: [row(5), on('sofa')] },
+      { id: 'nora', name: 'Jaime Cruz', role: 'cliente', at: [0, 0], clues: [on('silla'), west('berta'), north('luz')] },
+      { id: 'ivan', name: 'Patricia León', role: 'técnica', at: [2, 4], clues: [area(2, true), north('luz'), east('rosa')] },
+      { id: 'luz', name: 'Omar Beltrán', role: 'vecino', at: [3, 2], clues: [south('ivan'), north('teo'), west('berta')] },
+      { id: 'teo', name: 'Diana Ferrer', role: 'repartidora', at: [4, 5], clues: [on('silla'), south('luz'), east('ivan')] },
+      { id: 'berta', name: 'Lucas Amat', role: 'cajero', at: [5, 3], clues: [south('teo'), south('rosa'), area(0, true)] },
     ],
-    caseClues: [],
+    caseClues: [census(2, 2)],
   },
   {
     id: 'aula',
     title: 'El aula',
     difficulty: 'very_easy',
-    blurb: 'El timbre sonó y Hugo seguía en la tarima.',
+    blurb: 'El timbre sonó y Héctor seguía en la tarima.',
     map: ['pppppp', 'pppppp', 'vvvvvv', 'bbbbjj', 'bbbbjj', 'bbbbjj'],
     rooms: {
       p: { id: 0, name: 'la Pizarra', color: '#f6e2a8' },
@@ -128,21 +130,21 @@ const cases: Spec[] = [
       { r: 5, c: 1, kind: 'planta' },
       { r: 5, c: 2, kind: 'estanteria' },
     ],
-    victim: { id: 'hugo', name: 'Hugo Serra', role: 'profesor', at: [0, 2] },
+    victim: { id: 'hugo', name: 'Héctor Salinas', role: 'profesor', at: [0, 2] },
     people: [
-      { id: 'ana', name: 'Ana Rivas', role: 'alumna', at: [1, 0], clues: [row(1), on('silla')] },
-      { id: 'bruno', name: 'Bruno Gil', role: 'bedel', at: [2, 4], clues: [row(2), on('alfombra')] },
-      { id: 'cloe', name: 'Cloe Mora', role: 'alumna', at: [3, 1], clues: [row(3), on('silla')] },
-      { id: 'diego', name: 'Diego Paz', role: 'director', at: [4, 5], clues: [row(4), on('sofa'), area(3)] },
-      { id: 'elsa', name: 'Elsa Cid', role: 'madre', at: [5, 3], clues: [row(5), area(2)] },
+      { id: 'ana', name: 'Marina Costa', role: 'alumna', at: [1, 0], clues: [area(2, true), area(1, true)] },
+      { id: 'bruno', name: 'Alicia Ferrán', role: 'bedel', at: [2, 4], clues: [east('elsa'), area(2, true)] },
+      { id: 'cloe', name: 'Pablo Roca', role: 'alumno', at: [3, 1], clues: [on('silla'), north('elsa')] },
+      { id: 'diego', name: 'Emilio Daroca', role: 'director', at: [4, 5], clues: [beside('estanteria'), area(1, true)] },
+      { id: 'elsa', name: 'Begoña Ruiz', role: 'madre', at: [5, 3], clues: [south('cloe'), south('diego')] },
     ],
-    caseClues: [],
+    caseClues: [census(3, 1)],
   },
   {
     id: 'taller',
     title: 'El taller',
     difficulty: 'very_easy',
-    blurb: 'El gato hidráulico aguantaba el coche. A Martín, no.',
+    blurb: 'El gato hidráulico aguantaba el coche. A Ramón, no.',
     map: ['bbbzzz', 'bbbzzz', 'hhhhhh', 'hhhhhh', 'ffffcc', 'ffffcc'],
     rooms: {
       b: { id: 0, name: 'el Banco', color: '#f3d7c0' },
@@ -160,21 +162,21 @@ const cases: Spec[] = [
       { r: 4, c: 1, kind: 'silla' },
       { r: 5, c: 0, kind: 'estanteria' },
     ],
-    victim: { id: 'martin', name: 'Martín Gil', role: 'mecánico', at: [0, 4] },
+    victim: { id: 'martin', name: 'Ramón Ibarra', role: 'mecánico', at: [0, 4] },
     people: [
-      { id: 'rita', name: 'Rita Soler', role: 'clienta', at: [1, 5], clues: [row(1), on('silla'), area(1)] },
-      { id: 'oscar', name: 'Óscar Vidal', role: 'aprendiz', at: [2, 0], clues: [row(2), on('alfombra')] },
-      { id: 'nuria', name: 'Nuria Cid', role: 'proveedora', at: [3, 2], clues: [row(3), on('silla')] },
-      { id: 'leo', name: 'Leo Rivas', role: 'chapista', at: [4, 1], clues: [row(4), on('silla'), area(3)] },
-      { id: 'gala', name: 'Gala Mora', role: 'administrativa', at: [5, 3], clues: [row(5), col(3)] },
+      { id: 'rita', name: 'Laia Serra', role: 'clienta', at: [1, 5], clues: [north('oscar'), area(2, true), on('silla')] },
+      { id: 'oscar', name: 'Unai Gómez', role: 'aprendiz', at: [2, 0], clues: [south('rita'), west('martin'), area(4, true)] },
+      { id: 'nuria', name: 'Nerea Campos', role: 'proveedora', at: [3, 2], clues: [on('silla'), area(0, true), south('rita')] },
+      { id: 'leo', name: 'Félix Mora', role: 'chapista', at: [4, 1], clues: [on('silla'), south('nuria'), area(2, true)] },
+      { id: 'gala', name: 'Vera Solé', role: 'administrativa', at: [5, 3], clues: [south('leo'), area(4, true), area(2, true)] },
     ],
-    caseClues: [],
+    caseClues: [census(3, 2)],
   },
   {
     id: 'hostal',
     title: 'El hostal',
     difficulty: 'easy',
-    blurb: 'La llave de Olga seguía en el casillero de las siete.',
+    blurb: 'La llave de Teresa seguía en el casillero de las siete.',
     map: ['rrrrccc', 'rrrrccc', 'rrrrccc', 'ppppppp', 'ppppppp', 'kkkkeee', 'kkkkeee'],
     rooms: {
       r: { id: 0, name: 'el Recibidor', color: '#f0c7b8' },
@@ -193,16 +195,16 @@ const cases: Spec[] = [
       { r: 6, c: 4, kind: 'sofa' },
       { r: 6, c: 6, kind: 'planta' },
     ],
-    victim: { id: 'olga', name: 'Olga Ferrer', role: 'hostelera', at: [0, 1] },
+    victim: { id: 'olga', name: 'Teresa Llorens', role: 'hostelera', at: [0, 1] },
     people: [
-      { id: 'nora', name: 'Nora Gil', role: 'huésped', at: [1, 0], clues: [row(1), on('silla'), beside('planta')] },
-      { id: 'ivan', name: 'Iván Mora', role: 'cocinero', at: [2, 5], clues: [row(2), area(1)] },
-      { id: 'luz', name: 'Luz Serra', role: 'camarera', at: [3, 3], clues: [row(3), on('alfombra')] },
-      { id: 'teo', name: 'Teo Costa', role: 'mozo', at: [4, 6], clues: [south('luz'), col(6), area(2)] },
-      { id: 'paz', name: 'Paz Rivas', role: 'huésped', at: [5, 2], clues: [row(5), area(3), on('silla')] },
-      { id: 'gael', name: 'Gael Vidal', role: 'conductor', at: [6, 4], clues: [south('paz'), on('sofa'), area(4)] },
+      { id: 'nora', name: 'Nicolás Prat', role: 'huésped', at: [1, 0], clues: [beside('planta'), north('ivan')] },
+      { id: 'ivan', name: 'Gloria Valls', role: 'cocinera', at: [2, 5], clues: [area(0, true), west('teo')] },
+      { id: 'luz', name: 'Sofía Reig', role: 'camarera', at: [3, 3], clues: [north('teo'), area(1, true)] },
+      { id: 'teo', name: 'Marcos Dénia', role: 'mozo', at: [4, 6], clues: [east('ivan'), south('luz'), south('olga')] },
+      { id: 'paz', name: 'Yolanda Pons', role: 'huésped', at: [5, 2], clues: [south('teo'), on('silla')] },
+      { id: 'gael', name: 'Vicente Ortiz', role: 'conductor', at: [6, 4], clues: [south('teo'), east('luz')] },
     ],
-    caseClues: [census(2, 2)],
+    caseClues: [census(3, 1)],
   },
   {
     id: 'bodega',
@@ -227,20 +229,14 @@ const cases: Spec[] = [
     ],
     victim: { id: 'tomas', name: 'Tomás Rueda', role: 'bodeguero', at: [0, 3] },
     people: [
-      { id: 'rita', name: 'Rita Soler', role: 'clienta', at: [1, 6], clues: [row(1), on('silla'), area(0)] },
-      { id: 'oscar', name: 'Óscar Vidal', role: 'catador', at: [2, 1], clues: [row(2), on('alfombra'), north('nuria')] },
-      { id: 'nuria', name: 'Nuria Cid', role: 'sumiller', at: [3, 4], clues: [row(3), beside('mesa')] },
-      {
-        id: 'leo',
-        name: 'Leo Rivas',
-        role: 'mozo',
-        at: [4, 0],
-        clues: [south('nuria'), north('gala'), col(0)],
-      },
-      { id: 'gala', name: 'Gala Mora', role: 'contable', at: [5, 2], clues: [row(5), beside('estanteria')] },
-      { id: 'eva', name: 'Eva Gil', role: 'comercial', at: [6, 5], clues: [row(6), on('sofa'), area(3)] },
+      { id: 'rita', name: 'Jonás Puig', role: 'cliente', at: [1, 6], clues: [north('nuria'), east('eva'), area(1, true)] },
+      { id: 'oscar', name: 'Amparo Blasco', role: 'catadora', at: [2, 1], clues: [west('tomas'), area(0, true), north('nuria')] },
+      { id: 'nuria', name: 'Leire Domènech', role: 'sumiller', at: [3, 4], clues: [south('rita'), beside('mesa'), west('eva')] },
+      { id: 'leo', name: 'Víctor Pla', role: 'mozo', at: [4, 0], clues: [west('tomas'), north('gala'), west('oscar')] },
+      { id: 'gala', name: 'Celia Martí', role: 'contable', at: [5, 2], clues: [west('tomas'), beside('estanteria'), south('leo')] },
+      { id: 'eva', name: 'Quim Palau', role: 'comercial', at: [6, 5], clues: [east('nuria'), area(2, true), area(1, true)] },
     ],
-    caseClues: [],
+    caseClues: [census(3, 1)],
   },
   {
     id: 'invernadero',
@@ -266,20 +262,14 @@ const cases: Spec[] = [
     ],
     victim: { id: 'irene', name: 'Irene Bosch', role: 'botánica', at: [0, 1] },
     people: [
-      { id: 'nora', name: 'Nora Gil', role: 'becaria', at: [1, 2], clues: [row(1), area(0), on('silla')] },
-      {
-        id: 'ivan',
-        name: 'Iván Mora',
-        role: 'jardinero',
-        at: [2, 5],
-        clues: [row(2), area(1), beside('planta'), corner(true)],
-      },
-      { id: 'luz', name: 'Luz Serra', role: 'clienta', at: [3, 0], clues: [row(3), on('alfombra')] },
-      { id: 'teo', name: 'Teo Costa', role: 'repartidor', at: [4, 6], clues: [south('luz'), col(6), area(2)] },
-      { id: 'paz', name: 'Paz Rivas', role: 'socia', at: [5, 3], clues: [row(5), on('silla'), area(3)] },
-      { id: 'gael', name: 'Gael Vidal', role: 'transportista', at: [6, 4], clues: [south('paz'), on('sofa'), area(4)] },
+      { id: 'nora', name: 'Paula Grau', role: 'becaria', at: [1, 2], clues: [on('silla'), north('luz'), area(2, true)] },
+      { id: 'ivan', name: 'Marc Esteve', role: 'jardinero', at: [2, 5], clues: [beside('planta'), east('irene'), area(2, true)] },
+      { id: 'luz', name: 'Laura Sanz', role: 'clienta', at: [3, 0], clues: [south('nora'), west('irene'), north('teo')] },
+      { id: 'teo', name: 'Roger Font', role: 'repartidor', at: [4, 6], clues: [east('ivan'), south('irene'), area(3, true)] },
+      { id: 'paz', name: 'Elisa Camps', role: 'socia', at: [5, 3], clues: [on('silla'), north('gael'), area(2, true)] },
+      { id: 'gael', name: 'Darío Llopis', role: 'transportista', at: [6, 4], clues: [south('paz'), east('irene'), area(2, true)] },
     ],
-    caseClues: [],
+    caseClues: [census(3, 1), census(1, 1)],
   },
   {
     id: 'redaccion',
@@ -305,14 +295,14 @@ const cases: Spec[] = [
     ],
     victim: { id: 'sara', name: 'Sara Nadal', role: 'redactora', at: [0, 2] },
     people: [
-      { id: 'rita', name: 'Rita Soler', role: 'becaria', at: [1, 0], clues: [row(1), on('silla'), area(0)] },
-      { id: 'oscar', name: 'Óscar Vidal', role: 'maquetador', at: [2, 6], clues: [row(2), area(1)] },
-      { id: 'nuria', name: 'Nuria Cid', role: 'fotógrafa', at: [3, 3], clues: [row(3), on('alfombra')] },
-      { id: 'leo', name: 'Leo Rivas', role: 'editor', at: [4, 1], clues: [south('nuria'), col(1)] },
-      { id: 'gala', name: 'Gala Mora', role: 'correctora', at: [5, 4], clues: [row(5), on('silla'), area(4)] },
-      { id: 'eva', name: 'Eva Gil', role: 'impresora', at: [6, 5], clues: [row(6), on('sofa')] },
+      { id: 'rita', name: 'Judit Pujol', role: 'becaria', at: [1, 0], clues: [north('oscar'), west('leo')] },
+      { id: 'oscar', name: 'Oriol Mas', role: 'maquetador', at: [2, 6], clues: [north('nuria'), area(2, true)] },
+      { id: 'nuria', name: 'Núria Bellver', role: 'fotógrafa', at: [3, 3], clues: [north('leo'), area(3, true)] },
+      { id: 'leo', name: 'Enric Sala', role: 'editor', at: [4, 1], clues: [west('sara'), east('rita')] },
+      { id: 'gala', name: 'Candela Rius', role: 'correctora', at: [5, 4], clues: [north('eva'), on('silla')] },
+      { id: 'eva', name: 'Ferran Huguet', role: 'impresor', at: [6, 5], clues: [east('nuria'), area(0, true)] },
     ],
-    caseClues: [],
+    caseClues: [census(1, 1)],
   },
   {
     id: 'teatro',
@@ -337,43 +327,13 @@ const cases: Spec[] = [
     ],
     victim: { id: 'julia', name: 'Julia Cano', role: 'actriz', at: [0, 1] },
     people: [
-      { id: 'ana', name: 'Ana Rivas', role: 'apuntadora', at: [1, 0], clues: [col(0), beside('planta')] },
-      {
-        id: 'bruno',
-        name: 'Bruno Gil',
-        role: 'tramoyista',
-        at: [2, 6],
-        clues: [row(2), area(1), beside('planta'), corner(true)],
-      },
-      {
-        id: 'cloe',
-        name: 'Cloe Mora',
-        role: 'vestuario',
-        at: [3, 3],
-        clues: [south('bruno'), north('diego'), col(3)],
-      },
-      {
-        id: 'diego',
-        name: 'Diego Paz',
-        role: 'director',
-        at: [4, 7],
-        clues: [corner(), col(7), south('cloe')],
-      },
-      {
-        id: 'elsa',
-        name: 'Elsa Cid',
-        role: 'maquilladora',
-        at: [5, 2],
-        clues: [row(5), area(3), beside('estanteria'), corner(true)],
-      },
-      {
-        id: 'fabio',
-        name: 'Fabio Soler',
-        role: 'acomodador',
-        at: [6, 5],
-        clues: [col(5), south('elsa'), north('greta')],
-      },
-      { id: 'greta', name: 'Greta Vidal', role: 'crítica', at: [7, 4], clues: [row(7), on('sofa'), area(4)] },
+      { id: 'ana', name: 'Arnau Belmonte', role: 'apuntador', at: [1, 0], clues: [beside('planta'), north('cloe'), area(1, true)] },
+      { id: 'bruno', name: 'Rocío Lemos', role: 'tramoyista', at: [2, 6], clues: [beside('planta'), east('julia'), east('greta')] },
+      { id: 'cloe', name: 'Celeste Marín', role: 'vestuario', at: [3, 3], clues: [south('bruno'), north('diego'), west('bruno')] },
+      { id: 'diego', name: 'Damián Ortega', role: 'director', at: [4, 7], clues: [east('bruno'), south('cloe'), corner()] },
+      { id: 'elsa', name: 'Estela Monzó', role: 'maquilladora', at: [5, 2], clues: [beside('estanteria'), south('cloe'), east('julia')] },
+      { id: 'fabio', name: 'Gonzalo Prieto', role: 'acomodador', at: [6, 5], clues: [south('elsa'), north('greta'), east('greta')] },
+      { id: 'greta', name: 'Helena Duarte', role: 'crítica', at: [7, 4], clues: [south('fabio'), area(3, true), area(2, true)] },
     ],
     caseClues: [census(2, 2)],
   },
@@ -400,21 +360,15 @@ const cases: Spec[] = [
     ],
     victim: { id: 'pedro', name: 'Pedro Lama', role: 'oficial', at: [0, 2] },
     people: [
-      { id: 'ana', name: 'Ana Rivas', role: 'testigo', at: [1, 0], clues: [col(0), beside('planta'), area(0)] },
-      { id: 'bruno', name: 'Bruno Gil', role: 'forense', at: [2, 7], clues: [row(2), area(1), north('cleo')] },
-      { id: 'cleo', name: 'Cloe Mora', role: 'abogada', at: [3, 4], clues: [row(3), on('alfombra')] },
-      { id: 'diego', name: 'Diego Paz', role: 'periodista', at: [4, 1], clues: [south('cleo'), col(1), area(2)] },
-      { id: 'elsa', name: 'Elsa Cid', role: 'archivera', at: [5, 3], clues: [row(5), area(3), on('silla')] },
-      {
-        id: 'fabio',
-        name: 'Fabio Soler',
-        role: 'escolta',
-        at: [6, 6],
-        clues: [col(6), south('elsa'), north('greta')],
-      },
-      { id: 'greta', name: 'Greta Vidal', role: 'inspectora', at: [7, 5], clues: [row(7), on('sofa'), area(4)] },
+      { id: 'ana', name: 'Alba Méndez', role: 'testigo', at: [1, 0], clues: [beside('planta'), west('pedro'), north('cleo')] },
+      { id: 'bruno', name: 'Blanca Torrent', role: 'forense', at: [2, 7], clues: [beside('mesa'), east('pedro'), south('ana')] },
+      { id: 'cleo', name: 'Carmen Oliva', role: 'abogada', at: [3, 4], clues: [south('bruno'), north('diego'), west('greta')] },
+      { id: 'diego', name: 'Daniel Cervera', role: 'periodista', at: [4, 1], clues: [south('cleo'), west('pedro'), area(3, true)] },
+      { id: 'elsa', name: 'Eulalia Cid', role: 'archivera', at: [5, 3], clues: [south('diego'), north('fabio'), west('cleo')] },
+      { id: 'fabio', name: 'Fernando Arias', role: 'escolta', at: [6, 6], clues: [south('elsa'), north('greta'), east('greta')] },
+      { id: 'greta', name: 'Gracia Benet', role: 'inspectora', at: [7, 5], clues: [south('fabio'), area(3, true), east('elsa')] },
     ],
-    caseClues: [census(2, 2)],
+    caseClues: [census(2, 2), census(1, 1)],
   },
   {
     id: 'mercado',
@@ -569,10 +523,29 @@ function toRaw(spec: Spec) {
 const dir = join(process.cwd(), 'src/content/cases');
 mkdirSync(dir, { recursive: true });
 
+const DEDUCED = new Set([
+  'kiosco',
+  'lavanderia',
+  'aula',
+  'taller',
+  'hostal',
+  'bodega',
+  'invernadero',
+  'redaccion',
+  'teatro',
+  'comisaria',
+]);
+
 for (const spec of cases) {
   const raw = toRaw(spec);
   const puzzle = parseCase(raw, spec.id);
   assertUnique(puzzle);
+  if (DEDUCED.has(spec.id)) {
+    const kinds = [...spec.caseClues, ...spec.people.flatMap((person) => person.clues)];
+    if (kinds.some((clue) => clue.kind === 'row' || clue.kind === 'col')) {
+      throw new Error(`${spec.id}: una pista dice la fila o la columna`);
+    }
+  }
   writeFileSync(join(dir, `${spec.id}.json`), `${JSON.stringify(raw, null, 2)}\n`);
   console.log(`ok ${spec.id}`);
 }

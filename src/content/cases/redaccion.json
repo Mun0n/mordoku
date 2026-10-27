@@ -301,110 +301,111 @@
   "suspects": [
     {
       "id": "rita",
-      "name": "Rita Soler",
+      "name": "Judit Pujol",
       "role": "becaria",
       "color": "#c4476a",
       "clues": [
         {
-          "kind": "row",
-          "id": 1
+          "kind": "north",
+          "of": "oscar"
         },
         {
-          "kind": "on",
-          "object": "silla"
-        },
-        {
-          "kind": "area",
-          "id": 0
+          "kind": "west",
+          "of": "leo"
         }
       ]
     },
     {
       "id": "oscar",
-      "name": "Óscar Vidal",
+      "name": "Oriol Mas",
       "role": "maquetador",
       "color": "#b85a18",
       "clues": [
         {
-          "kind": "row",
-          "id": 2
+          "kind": "north",
+          "of": "nuria"
         },
         {
           "kind": "area",
-          "id": 1
+          "id": 2,
+          "negate": true
         }
       ]
     },
     {
       "id": "nuria",
-      "name": "Nuria Cid",
+      "name": "Núria Bellver",
       "role": "fotógrafa",
       "color": "#8c6410",
       "clues": [
         {
-          "kind": "row",
-          "id": 3
+          "kind": "north",
+          "of": "leo"
         },
         {
-          "kind": "on",
-          "object": "alfombra"
+          "kind": "area",
+          "id": 3,
+          "negate": true
         }
       ]
     },
     {
       "id": "leo",
-      "name": "Leo Rivas",
+      "name": "Enric Sala",
       "role": "editor",
       "color": "#2f8f55",
       "clues": [
         {
-          "kind": "south",
-          "of": "nuria"
+          "kind": "west",
+          "of": "sara"
         },
         {
-          "kind": "col",
-          "id": 1
+          "kind": "east",
+          "of": "rita"
         }
       ]
     },
     {
       "id": "gala",
-      "name": "Gala Mora",
+      "name": "Candela Rius",
       "role": "correctora",
       "color": "#2a7f86",
       "clues": [
         {
-          "kind": "row",
-          "id": 5
+          "kind": "north",
+          "of": "eva"
         },
         {
           "kind": "on",
           "object": "silla"
-        },
-        {
-          "kind": "area",
-          "id": 4
         }
       ]
     },
     {
       "id": "eva",
-      "name": "Eva Gil",
-      "role": "impresora",
+      "name": "Ferran Huguet",
+      "role": "impresor",
       "color": "#3a6fbe",
       "clues": [
         {
-          "kind": "row",
-          "id": 6
+          "kind": "east",
+          "of": "nuria"
         },
         {
-          "kind": "on",
-          "object": "sofa"
+          "kind": "area",
+          "id": 0,
+          "negate": true
         }
       ]
     }
   ],
-  "caseClues": [],
+  "caseClues": [
+    {
+      "kind": "census",
+      "area": 1,
+      "count": 1
+    }
+  ],
   "solution": {
     "rita": [
       1,

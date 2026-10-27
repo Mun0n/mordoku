@@ -24,6 +24,26 @@ export function assignmentFromSolution(puzzle: Puzzle): Assignment {
   return assignment;
 }
 
+export function bodyCell(puzzle: Puzzle, assignment: Assignment): Cell | null {
+  const rows = new Set<number>();
+  const cols = new Set<number>();
+  for (const suspect of puzzle.suspects) {
+    const cell = assignment[suspect.id];
+    if (!cell) return null;
+    if (rows.has(cell.r) || cols.has(cell.c)) return null;
+    rows.add(cell.r);
+    cols.add(cell.c);
+  }
+  let row = -1;
+  let col = -1;
+  for (let index = 0; index < puzzle.size; index++) {
+    if (!rows.has(index)) row = index;
+    if (!cols.has(index)) col = index;
+  }
+  if (row < 0 || col < 0) return null;
+  return { r: row, c: col };
+}
+
 export function placementBlock(
   puzzle: Puzzle,
   assignment: Assignment,

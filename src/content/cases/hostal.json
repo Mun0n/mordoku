@@ -2,7 +2,7 @@
   "id": "hostal",
   "title": "El hostal",
   "difficulty": "easy",
-  "blurb": "La llave de Olga seguía en el casillero de las siete.",
+  "blurb": "La llave de Teresa seguía en el casillero de las siete.",
   "size": 7,
   "areas": [
     {
@@ -299,7 +299,7 @@
   ],
   "victim": {
     "id": "olga",
-    "name": "Olga Ferrer",
+    "name": "Teresa Llorens",
     "role": "hostelera",
     "color": "#6b6258",
     "cell": [
@@ -310,89 +310,83 @@
   "suspects": [
     {
       "id": "nora",
-      "name": "Nora Gil",
+      "name": "Nicolás Prat",
       "role": "huésped",
       "color": "#c4476a",
       "clues": [
         {
-          "kind": "row",
-          "id": 1
-        },
-        {
-          "kind": "on",
-          "object": "silla"
-        },
-        {
           "kind": "beside",
           "object": "planta"
+        },
+        {
+          "kind": "north",
+          "of": "ivan"
         }
       ]
     },
     {
       "id": "ivan",
-      "name": "Iván Mora",
-      "role": "cocinero",
+      "name": "Gloria Valls",
+      "role": "cocinera",
       "color": "#b85a18",
       "clues": [
         {
-          "kind": "row",
-          "id": 2
+          "kind": "area",
+          "id": 0,
+          "negate": true
         },
         {
-          "kind": "area",
-          "id": 1
+          "kind": "west",
+          "of": "teo"
         }
       ]
     },
     {
       "id": "luz",
-      "name": "Luz Serra",
+      "name": "Sofía Reig",
       "role": "camarera",
       "color": "#8c6410",
       "clues": [
         {
-          "kind": "row",
-          "id": 3
+          "kind": "north",
+          "of": "teo"
         },
         {
-          "kind": "on",
-          "object": "alfombra"
+          "kind": "area",
+          "id": 1,
+          "negate": true
         }
       ]
     },
     {
       "id": "teo",
-      "name": "Teo Costa",
+      "name": "Marcos Dénia",
       "role": "mozo",
       "color": "#2f8f55",
       "clues": [
+        {
+          "kind": "east",
+          "of": "ivan"
+        },
         {
           "kind": "south",
           "of": "luz"
         },
         {
-          "kind": "col",
-          "id": 6
-        },
-        {
-          "kind": "area",
-          "id": 2
+          "kind": "south",
+          "of": "olga"
         }
       ]
     },
     {
       "id": "paz",
-      "name": "Paz Rivas",
+      "name": "Yolanda Pons",
       "role": "huésped",
       "color": "#2a7f86",
       "clues": [
         {
-          "kind": "row",
-          "id": 5
-        },
-        {
-          "kind": "area",
-          "id": 3
+          "kind": "south",
+          "of": "teo"
         },
         {
           "kind": "on",
@@ -402,21 +396,17 @@
     },
     {
       "id": "gael",
-      "name": "Gael Vidal",
+      "name": "Vicente Ortiz",
       "role": "conductor",
       "color": "#3a6fbe",
       "clues": [
         {
           "kind": "south",
-          "of": "paz"
+          "of": "teo"
         },
         {
-          "kind": "on",
-          "object": "sofa"
-        },
-        {
-          "kind": "area",
-          "id": 4
+          "kind": "east",
+          "of": "luz"
         }
       ]
     }
@@ -424,8 +414,8 @@
   "caseClues": [
     {
       "kind": "census",
-      "area": 2,
-      "count": 2
+      "area": 3,
+      "count": 1
     }
   ],
   "solution": {

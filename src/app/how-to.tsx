@@ -11,9 +11,9 @@ import { markHowToSeen } from '@/storage/progress';
 import { ObjectSwatch } from '@/ui/Glyph';
 
 const RULES = [
-  'Una persona por fila y por columna. La víctima ocupa la suya y también cuenta.',
+  'Una persona por fila y por columna. El cuerpo ocupa la casilla libre cuando todos los demás están colocados.',
   'El asesino es la única persona viva en la sala de la víctima. No hace falta que esté pegada a ella.',
-  'Las pistas dicen dónde estaba cada cual. Ninguna dice quién es el asesino.',
+  'Las pistas hablan de salas, muebles y de quién quedó al norte de quién. Ninguna dice quién es el asesino.',
   'Cierra el tablero antes de acusar. Si te rindes, la solución rellena el caso entero.',
 ];
 

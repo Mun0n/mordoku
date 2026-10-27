@@ -360,47 +360,48 @@
   "suspects": [
     {
       "id": "ana",
-      "name": "Ana Rivas",
-      "role": "apuntadora",
+      "name": "Arnau Belmonte",
+      "role": "apuntador",
       "color": "#c4476a",
       "clues": [
         {
-          "kind": "col",
-          "id": 0
-        },
-        {
           "kind": "beside",
           "object": "planta"
-        }
-      ]
-    },
-    {
-      "id": "bruno",
-      "name": "Bruno Gil",
-      "role": "tramoyista",
-      "color": "#b85a18",
-      "clues": [
+        },
         {
-          "kind": "row",
-          "id": 2
+          "kind": "north",
+          "of": "cloe"
         },
         {
           "kind": "area",
-          "id": 1
-        },
-        {
-          "kind": "beside",
-          "object": "planta"
-        },
-        {
-          "kind": "corner",
+          "id": 1,
           "negate": true
         }
       ]
     },
     {
+      "id": "bruno",
+      "name": "Rocío Lemos",
+      "role": "tramoyista",
+      "color": "#b85a18",
+      "clues": [
+        {
+          "kind": "beside",
+          "object": "planta"
+        },
+        {
+          "kind": "east",
+          "of": "julia"
+        },
+        {
+          "kind": "east",
+          "of": "greta"
+        }
+      ]
+    },
+    {
       "id": "cloe",
-      "name": "Cloe Mora",
+      "name": "Celeste Marín",
       "role": "vestuario",
       "color": "#8c6410",
       "clues": [
@@ -413,64 +414,56 @@
           "of": "diego"
         },
         {
-          "kind": "col",
-          "id": 3
+          "kind": "west",
+          "of": "bruno"
         }
       ]
     },
     {
       "id": "diego",
-      "name": "Diego Paz",
+      "name": "Damián Ortega",
       "role": "director",
       "color": "#2f8f55",
       "clues": [
         {
-          "kind": "corner"
-        },
-        {
-          "kind": "col",
-          "id": 7
+          "kind": "east",
+          "of": "bruno"
         },
         {
           "kind": "south",
           "of": "cloe"
+        },
+        {
+          "kind": "corner"
         }
       ]
     },
     {
       "id": "elsa",
-      "name": "Elsa Cid",
+      "name": "Estela Monzó",
       "role": "maquilladora",
       "color": "#2a7f86",
       "clues": [
-        {
-          "kind": "row",
-          "id": 5
-        },
-        {
-          "kind": "area",
-          "id": 3
-        },
         {
           "kind": "beside",
           "object": "estanteria"
         },
         {
-          "kind": "corner",
-          "negate": true
+          "kind": "south",
+          "of": "cloe"
+        },
+        {
+          "kind": "east",
+          "of": "julia"
         }
       ]
     },
     {
       "id": "fabio",
-      "name": "Fabio Soler",
+      "name": "Gonzalo Prieto",
       "role": "acomodador",
       "color": "#3a6fbe",
       "clues": [
-        {
-          "kind": "col",
-          "id": 5
-        },
         {
           "kind": "south",
           "of": "elsa"
@@ -478,26 +471,32 @@
         {
           "kind": "north",
           "of": "greta"
+        },
+        {
+          "kind": "east",
+          "of": "greta"
         }
       ]
     },
     {
       "id": "greta",
-      "name": "Greta Vidal",
+      "name": "Helena Duarte",
       "role": "crítica",
       "color": "#6d52b8",
       "clues": [
         {
-          "kind": "row",
-          "id": 7
-        },
-        {
-          "kind": "on",
-          "object": "sofa"
+          "kind": "south",
+          "of": "fabio"
         },
         {
           "kind": "area",
-          "id": 4
+          "id": 3,
+          "negate": true
+        },
+        {
+          "kind": "area",
+          "id": 2,
+          "negate": true
         }
       ]
     }

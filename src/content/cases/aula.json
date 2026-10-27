@@ -2,7 +2,7 @@
   "id": "aula",
   "title": "El aula",
   "difficulty": "very_easy",
-  "blurb": "El timbre sonó y Hugo seguía en la tarima.",
+  "blurb": "El timbre sonó y Héctor seguía en la tarima.",
   "size": 6,
   "areas": [
     {
@@ -258,7 +258,7 @@
   ],
   "victim": {
     "id": "hugo",
-    "name": "Hugo Serra",
+    "name": "Héctor Salinas",
     "role": "profesor",
     "color": "#6b6258",
     "cell": [
@@ -269,90 +269,96 @@
   "suspects": [
     {
       "id": "ana",
-      "name": "Ana Rivas",
+      "name": "Marina Costa",
       "role": "alumna",
       "color": "#c4476a",
       "clues": [
         {
-          "kind": "row",
-          "id": 1
+          "kind": "area",
+          "id": 2,
+          "negate": true
         },
         {
-          "kind": "on",
-          "object": "silla"
+          "kind": "area",
+          "id": 1,
+          "negate": true
         }
       ]
     },
     {
       "id": "bruno",
-      "name": "Bruno Gil",
+      "name": "Alicia Ferrán",
       "role": "bedel",
       "color": "#b85a18",
       "clues": [
         {
-          "kind": "row",
-          "id": 2
+          "kind": "east",
+          "of": "elsa"
         },
         {
-          "kind": "on",
-          "object": "alfombra"
+          "kind": "area",
+          "id": 2,
+          "negate": true
         }
       ]
     },
     {
       "id": "cloe",
-      "name": "Cloe Mora",
-      "role": "alumna",
+      "name": "Pablo Roca",
+      "role": "alumno",
       "color": "#8c6410",
       "clues": [
         {
-          "kind": "row",
-          "id": 3
-        },
-        {
           "kind": "on",
           "object": "silla"
+        },
+        {
+          "kind": "north",
+          "of": "elsa"
         }
       ]
     },
     {
       "id": "diego",
-      "name": "Diego Paz",
+      "name": "Emilio Daroca",
       "role": "director",
       "color": "#2f8f55",
       "clues": [
         {
-          "kind": "row",
-          "id": 4
-        },
-        {
-          "kind": "on",
-          "object": "sofa"
+          "kind": "beside",
+          "object": "estanteria"
         },
         {
           "kind": "area",
-          "id": 3
+          "id": 1,
+          "negate": true
         }
       ]
     },
     {
       "id": "elsa",
-      "name": "Elsa Cid",
+      "name": "Begoña Ruiz",
       "role": "madre",
       "color": "#2a7f86",
       "clues": [
         {
-          "kind": "row",
-          "id": 5
+          "kind": "south",
+          "of": "cloe"
         },
         {
-          "kind": "area",
-          "id": 2
+          "kind": "south",
+          "of": "diego"
         }
       ]
     }
   ],
-  "caseClues": [],
+  "caseClues": [
+    {
+      "kind": "census",
+      "area": 3,
+      "count": 1
+    }
+  ],
   "solution": {
     "ana": [
       1,

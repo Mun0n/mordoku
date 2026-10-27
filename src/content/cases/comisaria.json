@@ -356,37 +356,17 @@
   "suspects": [
     {
       "id": "ana",
-      "name": "Ana Rivas",
+      "name": "Alba Méndez",
       "role": "testigo",
       "color": "#c4476a",
       "clues": [
-        {
-          "kind": "col",
-          "id": 0
-        },
         {
           "kind": "beside",
           "object": "planta"
         },
         {
-          "kind": "area",
-          "id": 0
-        }
-      ]
-    },
-    {
-      "id": "bruno",
-      "name": "Bruno Gil",
-      "role": "forense",
-      "color": "#b85a18",
-      "clues": [
-        {
-          "kind": "row",
-          "id": 2
-        },
-        {
-          "kind": "area",
-          "id": 1
+          "kind": "west",
+          "of": "pedro"
         },
         {
           "kind": "north",
@@ -395,24 +375,48 @@
       ]
     },
     {
+      "id": "bruno",
+      "name": "Blanca Torrent",
+      "role": "forense",
+      "color": "#b85a18",
+      "clues": [
+        {
+          "kind": "beside",
+          "object": "mesa"
+        },
+        {
+          "kind": "east",
+          "of": "pedro"
+        },
+        {
+          "kind": "south",
+          "of": "ana"
+        }
+      ]
+    },
+    {
       "id": "cleo",
-      "name": "Cloe Mora",
+      "name": "Carmen Oliva",
       "role": "abogada",
       "color": "#8c6410",
       "clues": [
         {
-          "kind": "row",
-          "id": 3
+          "kind": "south",
+          "of": "bruno"
         },
         {
-          "kind": "on",
-          "object": "alfombra"
+          "kind": "north",
+          "of": "diego"
+        },
+        {
+          "kind": "west",
+          "of": "greta"
         }
       ]
     },
     {
       "id": "diego",
-      "name": "Diego Paz",
+      "name": "Daniel Cervera",
       "role": "periodista",
       "color": "#2f8f55",
       "clues": [
@@ -421,45 +425,42 @@
           "of": "cleo"
         },
         {
-          "kind": "col",
-          "id": 1
+          "kind": "west",
+          "of": "pedro"
         },
         {
           "kind": "area",
-          "id": 2
+          "id": 3,
+          "negate": true
         }
       ]
     },
     {
       "id": "elsa",
-      "name": "Elsa Cid",
+      "name": "Eulalia Cid",
       "role": "archivera",
       "color": "#2a7f86",
       "clues": [
         {
-          "kind": "row",
-          "id": 5
+          "kind": "south",
+          "of": "diego"
         },
         {
-          "kind": "area",
-          "id": 3
+          "kind": "north",
+          "of": "fabio"
         },
         {
-          "kind": "on",
-          "object": "silla"
+          "kind": "west",
+          "of": "cleo"
         }
       ]
     },
     {
       "id": "fabio",
-      "name": "Fabio Soler",
+      "name": "Fernando Arias",
       "role": "escolta",
       "color": "#3a6fbe",
       "clues": [
-        {
-          "kind": "col",
-          "id": 6
-        },
         {
           "kind": "south",
           "of": "elsa"
@@ -467,26 +468,31 @@
         {
           "kind": "north",
           "of": "greta"
+        },
+        {
+          "kind": "east",
+          "of": "greta"
         }
       ]
     },
     {
       "id": "greta",
-      "name": "Greta Vidal",
+      "name": "Gracia Benet",
       "role": "inspectora",
       "color": "#6d52b8",
       "clues": [
         {
-          "kind": "row",
-          "id": 7
-        },
-        {
-          "kind": "on",
-          "object": "sofa"
+          "kind": "south",
+          "of": "fabio"
         },
         {
           "kind": "area",
-          "id": 4
+          "id": 3,
+          "negate": true
+        },
+        {
+          "kind": "east",
+          "of": "elsa"
         }
       ]
     }
@@ -496,6 +502,11 @@
       "kind": "census",
       "area": 2,
       "count": 2
+    },
+    {
+      "kind": "census",
+      "area": 1,
+      "count": 1
     }
   ],
   "solution": {
