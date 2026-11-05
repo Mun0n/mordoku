@@ -16,11 +16,13 @@ import Svg, { Path } from 'react-native-svg';
 
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import { caseById } from '@/content/cases';
+import { caseById, cases } from '@/content/cases';
 import { Spacing } from '@/constants/theme';
+import { hint } from '@/engine/analyze';
 import { check, placementBlock } from '@/engine/check';
-import { clueSentence } from '@/engine/text';
+import { clueSentence, personName } from '@/engine/text';
 import type { Assignment } from '@/engine/types';
+import { caseIsOpen, keepMark, nextCaseId } from '@/game/campaign';
 import {
   freshGame,
   liftPerson,
@@ -31,12 +33,13 @@ import {
   type GameState,
 } from '@/game/state';
 import { useTheme } from '@/hooks/use-theme';
-import { loadProgress, readProgress, writeCase, type CaseStatus } from '@/storage/progress';
+import { loadProgress, progressSnapshot, readProgress, writeCase, type CaseStatus } from '@/storage/progress';
 import { BarButton, ScreenBar } from '@/ui/Bar';
 import { Board } from '@/ui/Board';
 import { CaseClueCard, ClueCard } from '@/ui/ClueCard';
 import { Dossier } from '@/ui/Dossier';
-import { blockMessage, checkMessage, tapNo, tapOk, tapWin } from '@/ui/copy';
+import { blockMessage, checkMessage, hintMessage, tapNo, tapOk, tapWin } from '@/ui/copy';
+import { personSex } from '@/ui/person';
 
 export default function CaseScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -63,6 +66,8 @@ function CasePlay({ puzzleId }: { puzzleId: string }) {
   const [selectedId, setSelectedId] = useState<string | null>(puzzle.suspects[0]?.id ?? null);
   const [toast, setToast] = useState<{ id: number; text: string } | null>(null);
   const [dossier, setDossier] = useState(false);
+  const [verdict, setVerdict] = useState<Verdict | null>(null);
+  const [locked, setLocked] = useState(false);
   const [boardWidth, setBoardWidth] = useState(0);
   const [cardsColumn, setCardsColumn] = useState(() => width - Spacing.three * 2);
   const cardsRef = useRef<ScrollViewInstance>(null);
@@ -72,6 +77,12 @@ function CasePlay({ puzzleId }: { puzzleId: string }) {
     let live = true;
     loadProgress().then((file) => {
       if (!live) return;
+      const order = cases.map((item) => item.id);
+      if (!caseIsOpen(order, puzzle.id, (id) => file[id]?.status === 'solved')) {
+        setLocked(true);
+        setReady(true);
+        return;
+      }
       const saved = readProgress(puzzle, file[puzzle.id]);
       setState({ placements: saved.placements, notes: saved.notes, undo: [] });
       setStatus(saved.status);
@@ -88,14 +99,15 @@ function CasePlay({ puzzleId }: { puzzleId: string }) {
   }
 
   function commit(next: GameState, nextStatus: CaseStatus, banner: string | null = null) {
+    const kept = keepMark(status, nextStatus);
     setState(next);
-    setStatus(nextStatus);
+    setStatus(kept);
     showToast(banner);
     void writeCase(puzzle.id, {
       placements: next.placements,
       notes: next.notes,
-      status: nextStatus,
-    });
+      status: kept,
+    }).catch(() => showToast('No se ha podido guardar la partida.'));
   }
 
   function edited(current: CaseStatus): CaseStatus {
@@ -148,7 +160,7 @@ function CasePlay({ puzzleId }: { puzzleId: string }) {
         text: 'Reiniciar',
         style: 'destructive',
         onPress: () => {
-          commit(freshGame(puzzle), status === 'revealed' ? 'revealed' : 'new', null);
+          commit(freshGame(puzzle), 'new', null);
           setSelectedId(puzzle.suspects[0]?.id ?? null);
         },
       },
@@ -192,6 +204,24 @@ function CasePlay({ puzzleId }: { puzzleId: string }) {
     ]);
   }
 
+  function onHint() {
+    const result = hint(puzzle, state.placements);
+    if (result.type !== 'forced') {
+      showToast(hintMessage(puzzle, result));
+      tapNo();
+      return;
+    }
+    const block = placementBlock(puzzle, state.placements, result.personId, result.cell);
+    if (block) {
+      showToast(blockMessage(block));
+      tapNo();
+      return;
+    }
+    commit(placePerson(state, result.personId, result.cell), edited(status), hintMessage(puzzle, result));
+    selectFromBoard(result.personId);
+    tapOk();
+  }
+
   function onAccuse() {
     const result = check(puzzle, state.placements);
     if (!result.ok) {
@@ -199,9 +229,20 @@ function CasePlay({ puzzleId }: { puzzleId: string }) {
       tapNo();
       return;
     }
-    const nextStatus = status === 'revealed' ? 'revealed' : 'solved';
-    commit(state, nextStatus, checkMessage(puzzle, result));
+    const kept = keepMark(status, 'solved');
+    commit(state, 'solved', null);
     tapWin();
+    const file = progressSnapshot();
+    const order = cases.map((item) => item.id);
+    const solved = (id: string) => (id === puzzle.id ? kept === 'solved' : file[id]?.status === 'solved');
+    const nextId = kept === 'solved' ? nextCaseId(order, solved) : null;
+    setVerdict({
+      killer: personName(puzzle, result.killerId),
+      nextId,
+      nextTitle: nextId ? (caseById(nextId)?.title ?? null) : null,
+      complete: kept === 'solved' && nextId === null,
+      revealed: kept === 'revealed',
+    });
   }
 
   const full = puzzle.suspects.every((suspect) => state.placements[suspect.id]);
@@ -211,6 +252,16 @@ function CasePlay({ puzzleId }: { puzzleId: string }) {
   const selected = puzzle.suspects.find((suspect) => suspect.id === selectedId);
 
   if (!ready) return <ThemedView style={styles.fill} />;
+  if (locked) {
+    return (
+      <ThemedView style={styles.fill}>
+        <SafeAreaView style={styles.fill} edges={['top', 'bottom']}>
+          <ScreenBar title={puzzle.title} backLabel="Niveles" onBack={() => router.back()} />
+          <ThemedText style={styles.missing}>Antes hay que superar el nivel anterior.</ThemedText>
+        </SafeAreaView>
+      </ThemedView>
+    );
+  }
 
   return (
     <ThemedView style={styles.fill}>
@@ -272,6 +323,7 @@ function CasePlay({ puzzleId }: { puzzleId: string }) {
               <ClueCard
                 name={puzzle.victim.name}
                 seed={puzzle.victim.id}
+                sex={personSex(puzzle.victim.role)}
                 shirt="#6b6258"
                 width={cardWidth}
                 victim
@@ -288,6 +340,7 @@ function CasePlay({ puzzleId }: { puzzleId: string }) {
                   <ClueCard
                     name={suspect.name}
                     seed={suspect.id}
+                    sex={personSex(suspect.role)}
                     shirt={suspect.color}
                     width={cardWidth}
                     selected={suspect.id === selectedId}
@@ -307,15 +360,30 @@ function CasePlay({ puzzleId }: { puzzleId: string }) {
             />
           ) : null}
         </View>
-        <View style={[styles.actions, { borderTopColor: theme.backgroundSelected }]}>
-          <Action label="Reiniciar" onPress={onReset} />
-          <Action label="Acusar" onPress={onAccuse} disabled={!full} filled />
-        </View>
-        <Pressable onPress={onReveal} style={styles.quiet}>
-          <ThemedText type="small" themeColor="textSecondary">
-            Solución
-          </ThemedText>
-        </Pressable>
+        {verdict ? (
+          <VerdictCard
+            verdict={verdict}
+            onNext={() => {
+              if (!verdict.nextId) return;
+              router.replace({ pathname: '/case/[id]', params: { id: verdict.nextId } });
+            }}
+            onLevels={() => router.dismissTo('/cases')}
+            onClose={() => setVerdict(null)}
+          />
+        ) : (
+          <>
+            <View style={[styles.actions, { borderTopColor: theme.backgroundSelected }]}>
+              <Action label="Reiniciar" onPress={onReset} />
+              <Action label="Ayuda" onPress={onHint} />
+              <Action label="Acusar" onPress={onAccuse} disabled={!full} filled />
+            </View>
+            <Pressable accessibilityRole="button" onPress={onReveal} style={styles.quiet}>
+              <ThemedText type="small" themeColor="textSecondary">
+                Solución
+              </ThemedText>
+            </Pressable>
+          </>
+        )}
         {dossier ? (
           <View style={[styles.dossier, { backgroundColor: theme.background }]}>
             <Dossier puzzle={puzzle} onClose={() => setDossier(false)} />
@@ -324,6 +392,60 @@ function CasePlay({ puzzleId }: { puzzleId: string }) {
         </View>
       </SafeAreaView>
     </ThemedView>
+  );
+}
+
+type Verdict = {
+  killer: string;
+  nextId: string | null;
+  nextTitle: string | null;
+  complete: boolean;
+  revealed: boolean;
+};
+
+function VerdictCard({
+  verdict,
+  onNext,
+  onLevels,
+  onClose,
+}: {
+  verdict: Verdict;
+  onNext: () => void;
+  onLevels: () => void;
+  onClose: () => void;
+}) {
+  const title = verdict.complete ? 'Campaña completa' : `El asesino es ${verdict.killer}.`;
+  const detail = verdict.complete
+    ? `El asesino es ${verdict.killer}.`
+    : verdict.revealed
+      ? 'Ver la solución no abre el siguiente.'
+      : verdict.nextTitle
+        ? `Siguiente: ${verdict.nextTitle}`
+        : null;
+  const theme = useTheme();
+  return (
+    <View style={[styles.verdict, { backgroundColor: theme.background, borderTopColor: theme.backgroundSelected }]}>
+      <ThemedText type="smallBold" themeColor={verdict.complete ? 'accent' : 'text'}>
+        {title}
+      </ThemedText>
+      {detail ? (
+        <ThemedText type="small" themeColor="textSecondary">
+          {detail}
+        </ThemedText>
+      ) : null}
+      <View style={styles.actions}>
+        {verdict.revealed ? (
+          <Action label="Seguir" onPress={onClose} filled />
+        ) : verdict.nextId ? (
+          <>
+            <Action label="Niveles" onPress={onLevels} />
+            <Action label="Siguiente" onPress={onNext} filled />
+          </>
+        ) : (
+          <Action label="Niveles" onPress={onLevels} filled />
+        )}
+      </View>
+    </View>
   );
 }
 
@@ -341,6 +463,8 @@ function Action({
   const theme = useTheme();
   return (
     <Pressable
+      accessibilityRole="button"
+      accessibilityState={{ disabled }}
       onPress={onPress}
       disabled={disabled}
       style={[
@@ -465,7 +589,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     overflow: 'hidden',
   },
-  cardsScroll: { flex: 1, minWidth: 0, minHeight: 0, alignSelf: 'stretch' },
+  cardsScroll: { flex: 1, minWidth: 0, minHeight: 0, alignSelf: 'stretch', overflow: 'hidden' },
   scroll: {
     alignItems: 'center',
     gap: Spacing.two,
@@ -494,6 +618,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 4,
   },
   quiet: { alignItems: 'center', paddingVertical: Spacing.two },
+  verdict: {
+    gap: Spacing.two,
+    paddingHorizontal: Spacing.three,
+    paddingTop: Spacing.three,
+    paddingBottom: Spacing.two,
+    borderTopWidth: StyleSheet.hairlineWidth,
+  },
   toastWrap: {
     position: 'absolute',
     left: Spacing.three,

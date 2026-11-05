@@ -1,14 +1,14 @@
 {
-  "id": "teatro",
-  "title": "El teatro",
+  "id": "woolwich",
+  "title": "Woolwich",
   "difficulty": "medium",
-  "blurb": "Bajó el telón y Julia no salió a saludar.",
+  "blurb": "Cadogan West no entregó los planos. Apareció lejos de la oficina, y no estaban todos.",
   "size": 8,
   "areas": [
     {
       "id": 0,
-      "name": "la Sala",
-      "color": "#f0c7b8",
+      "name": "el Despacho",
+      "color": "#f6e2a8",
       "cells": [
         [
           0,
@@ -40,30 +40,14 @@
         ],
         [
           1,
-          3
-        ],
-        [
-          2,
-          0
-        ],
-        [
-          2,
-          1
-        ],
-        [
-          2,
-          2
-        ],
-        [
-          2,
           3
         ]
       ]
     },
     {
       "id": 1,
-      "name": "el Escenario",
-      "color": "#f6e2a8",
+      "name": "el Pasillo",
+      "color": "#c5daf3",
       "cells": [
         [
           0,
@@ -95,103 +79,103 @@
         ],
         [
           1,
-          7
-        ],
-        [
-          2,
-          4
-        ],
-        [
-          2,
-          5
-        ],
-        [
-          2,
-          6
-        ],
-        [
-          2,
           7
         ]
       ]
     },
     {
       "id": 2,
-      "name": "el Patio",
-      "color": "#c5daf3",
+      "name": "el Andén",
+      "color": "#d5ebe4",
       "cells": [
         [
-          3,
+          2,
           0
         ],
         [
-          3,
+          2,
           1
         ],
         [
-          3,
+          2,
           2
         ],
         [
-          3,
+          2,
           3
         ],
         [
-          3,
+          2,
           4
         ],
         [
-          3,
+          2,
           5
         ],
         [
-          3,
+          2,
           6
         ],
         [
-          3,
+          2,
           7
         ],
         [
-          4,
+          3,
           0
         ],
         [
-          4,
+          3,
           1
         ],
         [
-          4,
+          3,
           2
         ],
         [
-          4,
+          3,
           3
         ],
         [
-          4,
+          3,
           4
         ],
         [
-          4,
+          3,
           5
         ],
         [
-          4,
+          3,
           6
         ],
         [
-          4,
+          3,
           7
         ]
       ]
     },
     {
       "id": 3,
-      "name": "el Camerino",
-      "color": "#e4d2f4",
+      "name": "el Salón",
+      "color": "#f0c7b8",
       "cells": [
         [
+          4,
+          0
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          4,
+          3
+        ],
+        [
           5,
           0
         ],
@@ -221,32 +205,32 @@
         ],
         [
           6,
-          3
-        ],
-        [
-          7,
-          0
-        ],
-        [
-          7,
-          1
-        ],
-        [
-          7,
-          2
-        ],
-        [
-          7,
           3
         ]
       ]
     },
     {
       "id": 4,
-      "name": "la Calle",
+      "name": "el Archivo",
       "color": "#cfe6c4",
       "cells": [
         [
+          4,
+          4
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          4,
+          6
+        ],
+        [
+          4,
+          7
+        ],
+        [
           5,
           4
         ],
@@ -277,6 +261,29 @@
         [
           6,
           7
+        ]
+      ]
+    },
+    {
+      "id": 5,
+      "name": "la Calle",
+      "color": "#e4d2f4",
+      "cells": [
+        [
+          7,
+          0
+        ],
+        [
+          7,
+          1
+        ],
+        [
+          7,
+          2
+        ],
+        [
+          7,
+          3
         ],
         [
           7,
@@ -306,27 +313,27 @@
     {
       "r": 2,
       "c": 5,
-      "kind": "planta"
-    },
-    {
-      "r": 0,
-      "c": 6,
-      "kind": "mesa"
-    },
-    {
-      "r": 3,
-      "c": 3,
       "kind": "alfombra"
     },
     {
+      "r": 4,
+      "c": 3,
+      "kind": "silla"
+    },
+    {
       "r": 5,
-      "c": 1,
+      "c": 7,
       "kind": "estanteria"
     },
     {
       "r": 7,
       "c": 4,
       "kind": "sofa"
+    },
+    {
+      "r": 0,
+      "c": 6,
+      "kind": "mesa"
     }
   ],
   "blocked": [
@@ -335,22 +342,18 @@
       1
     ],
     [
-      2,
-      5
+      5,
+      7
     ],
     [
       0,
       6
-    ],
-    [
-      5,
-      1
     ]
   ],
   "victim": {
-    "id": "julia",
-    "name": "Julia Cano",
-    "role": "actriz",
+    "id": "leon",
+    "name": "Cadogan West",
+    "role": "funcionario",
     "color": "#6b6258",
     "cell": [
       0,
@@ -360,49 +363,48 @@
   "suspects": [
     {
       "id": "ana",
-      "name": "Arnau Belmonte",
-      "role": "apuntador",
+      "name": "Sidney Johnson",
+      "role": "escribiente",
       "color": "#c4476a",
       "clues": [
+        {
+          "kind": "col",
+          "id": 0
+        },
         {
           "kind": "beside",
           "object": "planta"
         },
         {
-          "kind": "north",
-          "of": "cloe"
-        },
-        {
           "kind": "area",
-          "id": 1,
-          "negate": true
+          "id": 0
         }
       ]
     },
     {
       "id": "bruno",
-      "name": "Rocío Lemos",
-      "role": "tramoyista",
+      "name": "Valentine",
+      "role": "el hermano",
       "color": "#b85a18",
       "clues": [
         {
-          "kind": "beside",
-          "object": "planta"
+          "kind": "row",
+          "id": 2
         },
         {
-          "kind": "east",
-          "of": "julia"
+          "kind": "on",
+          "object": "alfombra"
         },
         {
-          "kind": "east",
-          "of": "greta"
+          "kind": "north",
+          "of": "cleo"
         }
       ]
     },
     {
-      "id": "cloe",
-      "name": "Celeste Marín",
-      "role": "vestuario",
+      "id": "cleo",
+      "name": "Westbury",
+      "role": "Violet, la prometida",
       "color": "#8c6410",
       "clues": [
         {
@@ -410,93 +412,88 @@
           "of": "bruno"
         },
         {
-          "kind": "north",
-          "of": "diego"
+          "kind": "col",
+          "id": 7
         },
         {
-          "kind": "west",
-          "of": "bruno"
+          "kind": "area",
+          "id": 2
         }
       ]
     },
     {
       "id": "diego",
-      "name": "Damián Ortega",
-      "role": "director",
+      "name": "James Walter",
+      "role": "el jefe",
       "color": "#2f8f55",
       "clues": [
         {
-          "kind": "east",
-          "of": "bruno"
+          "kind": "row",
+          "id": 4
         },
         {
-          "kind": "south",
-          "of": "cloe"
+          "kind": "area",
+          "id": 3
         },
         {
-          "kind": "corner"
+          "kind": "on",
+          "object": "silla"
         }
       ]
     },
     {
       "id": "elsa",
-      "name": "Estela Monzó",
-      "role": "maquilladora",
+      "name": "Oberstein",
+      "role": "espía",
       "color": "#2a7f86",
       "clues": [
         {
+          "kind": "row",
+          "id": 5
+        },
+        {
           "kind": "beside",
           "object": "estanteria"
-        },
-        {
-          "kind": "south",
-          "of": "cloe"
-        },
-        {
-          "kind": "east",
-          "of": "julia"
         }
       ]
     },
     {
       "id": "fabio",
-      "name": "Gonzalo Prieto",
-      "role": "acomodador",
+      "name": "Harold Porter",
+      "role": "mozo",
       "color": "#3a6fbe",
       "clues": [
         {
+          "kind": "row",
+          "id": 6
+        },
+        {
+          "kind": "col",
+          "id": 2
+        },
+        {
+          "kind": "area",
+          "id": 3
+        },
+        {
           "kind": "south",
-          "of": "elsa"
-        },
-        {
-          "kind": "north",
-          "of": "greta"
-        },
-        {
-          "kind": "east",
-          "of": "greta"
+          "of": "diego"
         }
       ]
     },
     {
       "id": "greta",
-      "name": "Helena Duarte",
-      "role": "crítica",
+      "name": "Ellen Wade",
+      "role": "doncella",
       "color": "#6d52b8",
       "clues": [
         {
-          "kind": "south",
-          "of": "fabio"
+          "kind": "row",
+          "id": 7
         },
         {
-          "kind": "area",
-          "id": 3,
-          "negate": true
-        },
-        {
-          "kind": "area",
-          "id": 2,
-          "negate": true
+          "kind": "on",
+          "object": "sofa"
         }
       ]
     }
@@ -515,23 +512,23 @@
     ],
     "bruno": [
       2,
-      6
+      5
     ],
-    "cloe": [
+    "cleo": [
       3,
-      3
+      7
     ],
     "diego": [
       4,
-      7
+      3
     ],
     "elsa": [
       5,
-      2
+      6
     ],
     "fabio": [
       6,
-      5
+      2
     ],
     "greta": [
       7,

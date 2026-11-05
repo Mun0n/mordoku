@@ -12,16 +12,16 @@ const expectedSize: Record<Difficulty, number> = {
 };
 
 const DEDUCED = new Set([
-  'kiosco',
-  'lavanderia',
-  'aula',
-  'taller',
-  'hostal',
-  'bodega',
-  'invernadero',
-  'redaccion',
-  'teatro',
-  'comisaria',
+  'cabana',
+  'grange',
+  'thorpe',
+  'yoxley',
+  'hatherley',
+  'cunningham',
+  'tredannick',
+  'lewisham',
+  'wisteria',
+  'brook',
 ]);
 
 const dir = join(process.cwd(), 'src/content/cases');

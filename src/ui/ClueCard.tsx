@@ -3,6 +3,7 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Fonts } from '@/constants/theme';
 import { clueSentence } from '@/engine/text';
 import type { Clue, Puzzle } from '@/engine/types';
+import type { Sex } from '@/ui/person';
 import { Portrait } from '@/ui/Portrait';
 
 const SERIF = Fonts?.serif ?? 'serif';
@@ -13,6 +14,7 @@ const PAPER = '#fffdf8';
 type PersonCardProps = {
   name: string;
   seed: string;
+  sex: Sex;
   shirt: string;
   lines: string[];
   width: number;
@@ -24,6 +26,7 @@ type PersonCardProps = {
 export function ClueCard({
   name,
   seed,
+  sex,
   shirt,
   lines,
   width,
@@ -37,7 +40,7 @@ export function ClueCard({
   const body = (
     <>
       <View style={[styles.frame, selected && { borderColor: shirt }]}>
-        <Portrait seed={seed} shirt={shirt} victim={victim} width={portrait} />
+        <Portrait seed={seed} sex={sex} shirt={shirt} victim={victim} width={portrait} />
         <Text style={styles.name}>{first}</Text>
       </View>
       <View style={[styles.bubble, victim && styles.victimBubble]}>

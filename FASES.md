@@ -1,18 +1,18 @@
 # Fases
 
-La fase de prueba se cierra antes de tocar el tema. Este archivo es el recordatorio.
+Las doce visitas ya están en la app. Este archivo es el recordatorio.
 
 ## Fase de prueba
 
-La que está en la app: doce casos genéricos.
+La que está en la app: doce visitas de Holmes.
 
-kiosco, lavandería, aula, taller, hostal, bodega, invernadero, redacción, teatro, comisaría, mercado, faro.
+cabaña, Abbey Grange, Riding Thorpe, Yoxley, la charca, los Cunningham, Tredannick, Lewisham, Wisteria Lodge, Brook Street, Pondicherry, Woolwich.
 
-Son el banco del motor. No se reescriben como visitas.
+Cada una conserva el plano y las pistas del tablero de prueba. Cambian la casa, el reparto y la frase. El asesino del cuento está en el tablero y no es el de la cuadrícula.
 
 Alcance:
 
-- Lista por dificultad. Todos abiertos. Marcas: a medias, resuelto, revelado.
+- Lista por dificultad. Se abre el primero. Acusar bien abre el siguiente y deja repetir los ya resueltos. Ver la solución no abre el siguiente. Marcas: a medias, resuelto, revelado.
 - Primera apertura: cómo se juega.
 - Tablero de papel, en claro y en oscuro. Retratos y pistas en tarjeta.
 - Colocar, quitar, nota con pulsación larga, deshacer, reiniciar.
@@ -24,33 +24,30 @@ Fuera, también del tema hasta que se decida aparte: generador automático, tabl
 
 Para darla por ok: jugar un caso de punta a punta. Colocar, chocar una fila, anotar, cerrar la app, volver y ver el progreso. Acusar. Repetirlo en un caso ya revelado.
 
-## Después: la escritora
+## Después: Holmes
 
-Decisión del 26 oct 2026, por la noche. Sustituye a «una fase, un libro». No se implementa hasta que la fase de prueba esté ok.
+Decisión del 27 oct 2026. Sustituye a la escritora. Los doce tableros de la app ya son estas visitas.
 
-El tema es una escritora de novelas de misterio, al modo de un episodio de *Se ha escrito un crimen*. Cada caso es una visita: llega a un sitio cerrado, el reparto es el de esa casa, y el caso se cierra al acusar. Ella se repite. Los sospechosos no.
-
-Los crímenes, los nombres y los trucos se escriben para la app. No salen de un libro. Quien juega no necesita haber leído nada, y el tablero no desvela el final de ninguna novela.
+Holmes visita. Cada caso es una casa de un cuento del canon: el sitio, la víctima y los nombres que ya estaban. Watson no pisa el tablero. Holmes tampoco. El caso se cierra al acusar.
 
 El motor no cambia: una persona por fila y columna, la víctima incluida; salas; objetos; el asesino es la única persona viva en la sala de la víctima.
 
-Los doce casos de prueba siguen siendo el banco. No se reescriben como visitas. Enseñan la planta: un sitio, un puñado de gente, una frase de entrada.
+El asesino del cuento está en el tablero y no es el asesino del caso. Quien recuerda el final lo sienta en la sala equivocada. El resto juega las pistas. Las pistas son de posición. El truco del cuento (un código, un cuaderno, un vaso de más) no se convierte en pista: con eso se resuelve sin cuadrícula.
 
-Una fase lleva:
+Si el cuento no tiene un asesino humano dentro de la casa, no entra. Serpiente, caballo, perro, medusa, suicidio disfrazado y muerte falsa se quedan fuera.
 
-- la escritora: nombre, oficio, una frase de quién es
-- casos sueltos; cada uno con su sitio, su reparto y una historia previa corta al abrirlo
+Si el cuento no da suficientes nombres, se añade gente de la casa. Esos nombres no son de Doyle. La frase de cada caso es nueva.
 
-La home deja de ser solo dificultad cuando exista la primera fase con ella.
+La cabaña sale de *Black Peter*. Neligan se quedó con Peter Carey. Cairns es la pista falsa. Ada Carey, Maud Carey y Hugh Slater no tienen ese nombre en el cuento: la mujer y la hija no vienen bautizadas, y el quinto tripulante está añadido.
+
+Holmes en la home sigue pendiente. No lleva retrato de actor.
 
 ### Derechos
 
-El formato de episodio acogedor no es de nadie. Jessica Fletcher, Cabot Cove y los capítulos de la serie no se usan.
+El canon de Doyle está en dominio público. Los nombres de esos cuentos se pueden usar. No se copia el texto, ni en inglés ni de una traducción: las traducciones al español pueden seguir protegidas. La frase de cada caso es nueva.
 
-Tampoco se adapta el crimen de un libro, aunque la obra esté en dominio público. Holmes y *El misterio del cuarto amarillo* quedan fuera por eso: el final ya está dicho, y varios de esos trucos ni caben en la sala.
+No entran caras de actores, ni el Holmes de la televisión, ni el cine. Jessica Fletcher, Cabot Cove y los capítulos de *Se ha escrito un crimen* siguen fuera.
 
 ### Orden cuando toque
 
-1. La escritora en los tipos y en la home.
-2. Un caso piloto en el formato de tablero que ya existe, con ella de visita.
-3. El resto de esa fase.
+1. Holmes en la home, sin retrato de actor.

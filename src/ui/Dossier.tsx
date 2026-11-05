@@ -4,6 +4,7 @@ import { ThemedText } from '@/components/themed-text';
 import { Fonts, Spacing } from '@/constants/theme';
 import type { Puzzle } from '@/engine/types';
 import { useTheme } from '@/hooks/use-theme';
+import { personSex } from '@/ui/person';
 import { Portrait } from '@/ui/Portrait';
 
 const SERIF = Fonts?.serif ?? 'serif';
@@ -63,7 +64,7 @@ function Person({
   return (
     <View style={[styles.person, { backgroundColor: theme.backgroundElement }]}>
       <View style={[styles.frame, { borderColor: theme.text }]}>
-        <Portrait seed={seed} shirt={shirt} victim={victim} width={64} />
+        <Portrait seed={seed} sex={personSex(role)} shirt={shirt} victim={victim} width={64} />
       </View>
       <View style={styles.copy}>
         <ThemedText style={styles.name}>{name}</ThemedText>

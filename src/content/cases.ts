@@ -1,31 +1,31 @@
-import aula from '@/content/cases/aula.json';
-import bodega from '@/content/cases/bodega.json';
-import comisaria from '@/content/cases/comisaria.json';
-import faro from '@/content/cases/faro.json';
-import hostal from '@/content/cases/hostal.json';
-import invernadero from '@/content/cases/invernadero.json';
-import kiosco from '@/content/cases/kiosco.json';
-import lavanderia from '@/content/cases/lavanderia.json';
-import mercado from '@/content/cases/mercado.json';
-import redaccion from '@/content/cases/redaccion.json';
-import taller from '@/content/cases/taller.json';
-import teatro from '@/content/cases/teatro.json';
+import brook from '@/content/cases/brook.json';
+import cabana from '@/content/cases/cabana.json';
+import cunningham from '@/content/cases/cunningham.json';
+import grange from '@/content/cases/grange.json';
+import hatherley from '@/content/cases/hatherley.json';
+import lewisham from '@/content/cases/lewisham.json';
+import pondicherry from '@/content/cases/pondicherry.json';
+import thorpe from '@/content/cases/thorpe.json';
+import tredannick from '@/content/cases/tredannick.json';
+import wisteria from '@/content/cases/wisteria.json';
+import woolwich from '@/content/cases/woolwich.json';
+import yoxley from '@/content/cases/yoxley.json';
 import { parseCase } from '@/engine/parse';
 import type { Difficulty, Puzzle } from '@/engine/types';
 
 const ORDER = [
-  kiosco,
-  lavanderia,
-  aula,
-  taller,
-  hostal,
-  bodega,
-  invernadero,
-  redaccion,
-  teatro,
-  comisaria,
-  mercado,
-  faro,
+  cabana,
+  grange,
+  thorpe,
+  yoxley,
+  hatherley,
+  cunningham,
+  tredannick,
+  lewisham,
+  wisteria,
+  brook,
+  pondicherry,
+  woolwich,
 ];
 
 export const cases: Puzzle[] = ORDER.map((raw) => parseCase(raw));

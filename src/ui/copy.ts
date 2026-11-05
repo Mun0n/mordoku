@@ -1,5 +1,6 @@
 import * as Haptics from 'expo-haptics';
 
+import type { Hint } from '@/engine/analyze';
 import type { BlockReason, CheckResult } from '@/engine/check';
 import { clueLabel, personName } from '@/engine/text';
 import type { Puzzle } from '@/engine/types';
@@ -31,6 +32,22 @@ export function checkMessage(puzzle: Puzzle, result: CheckResult): string {
       return 'Hay dos personas en la misma fila o columna.';
     case 'blocked':
       return 'Alguien está sobre un mueble que no se puede ocupar.';
+  }
+}
+
+export function hintMessage(puzzle: Puzzle, result: Hint): string {
+  if (result.type === 'forced') return `${personName(puzzle, result.personId)} solo puede ir ahí.`;
+  if (result.type === 'none') return 'No hay una casilla forzada.';
+  switch (result.reason) {
+    case 'blocked':
+      return 'Alguien está sobre un mueble que no se puede ocupar.';
+    case 'row':
+    case 'col':
+      return 'Hay dos personas en la misma fila o columna.';
+    case 'killer':
+      return 'En la sala de la víctima no queda exactamente una persona viva.';
+    case 'domain':
+      return result.ref ? `Esta pista no cuadra: ${clueLabel(puzzle, result.ref)}` : 'Las pistas no dejan sitio.';
   }
 }
 

@@ -7,6 +7,7 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { cases, DIFFICULTY_LABEL, DIFFICULTY_ORDER } from '@/content/cases';
 import { Spacing } from '@/constants/theme';
+import { caseIsOpen } from '@/game/campaign';
 import { useTheme } from '@/hooks/use-theme';
 import { loadProgress, type CaseStatus, type ProgressFile } from '@/storage/progress';
 import { ScreenBar } from '@/ui/Bar';
@@ -28,24 +29,29 @@ export default function CasesScreen() {
     }, []),
   );
 
-  const open = cases.filter((puzzle) => {
-    const status = progress[puzzle.id]?.status ?? 'new';
-    return status === 'new' || status === 'in_progress';
-  }).length;
-  const hint = open === 0 ? 'Todos cerrados' : open === cases.length ? `${cases.length} casos` : `${open} por cerrar`;
+  const solved = (id: string) => progress[id]?.status === 'solved';
+  const order = cases.map((puzzle) => puzzle.id);
+  const beaten = order.findIndex((id) => !solved(id));
+  const cleared = beaten === -1 ? cases.length : beaten;
+  const hint =
+    cleared === cases.length ? 'Todos superados' : cleared === 0 ? 'Nivel 1' : `${cleared} superados`;
 
   return (
     <ThemedView style={styles.fill}>
       <SafeAreaView style={styles.fill} edges={['top', 'bottom']}>
-        <ScreenBar title="Nueva partida" hint={hint} backLabel="Menú" onBack={() => router.back()} />
+        <ScreenBar title="Niveles" hint={hint} backLabel="Menú" onBack={() => router.back()} />
         <ScrollView contentContainerStyle={styles.content}>
-          {DIFFICULTY_ORDER.map((difficulty) => (
-            <View key={difficulty} style={styles.group}>
-              <ThemedText type="smallBold">{DIFFICULTY_LABEL[difficulty]}</ThemedText>
-              {cases
-                .filter((puzzle) => puzzle.difficulty === difficulty)
-                .map((puzzle) => {
+          {DIFFICULTY_ORDER.map((difficulty) => {
+            const group = cases.filter(
+              (puzzle) => puzzle.difficulty === difficulty && caseIsOpen(order, puzzle.id, solved),
+            );
+            if (group.length === 0) return null;
+            return (
+              <View key={difficulty} style={styles.group}>
+                <ThemedText type="smallBold">{DIFFICULTY_LABEL[difficulty]}</ThemedText>
+                {group.map((puzzle) => {
                   const status = progress[puzzle.id]?.status ?? 'new';
+                  const number = order.indexOf(puzzle.id) + 1;
                   return (
                     <Pressable
                       key={puzzle.id}
@@ -54,7 +60,7 @@ export default function CasesScreen() {
                     >
                       <View style={styles.cardTop}>
                         <ThemedText type="smallBold" style={styles.cardTitle}>
-                          {puzzle.title}
+                          {number}. {puzzle.title}
                         </ThemedText>
                         <ThemedText type="small" themeColor="textSecondary">
                           {puzzle.size}×{puzzle.size}
@@ -63,21 +69,23 @@ export default function CasesScreen() {
                       <ThemedText type="small" themeColor="textSecondary">
                         {puzzle.blurb}
                       </ThemedText>
-                      <StatusBadge status={status} />
+                      <StatusBadge status={status} upcoming={number === cleared + 1 && cleared > 0} />
                     </Pressable>
                   );
                 })}
-            </View>
-          ))}
+              </View>
+            );
+          })}
         </ScrollView>
       </SafeAreaView>
     </ThemedView>
   );
 }
 
-function StatusBadge({ status }: { status: CaseStatus }) {
-  if (status === 'new') return null;
-  const label = status === 'solved' ? 'Resuelto' : status === 'revealed' ? 'Revelado' : 'A medias';
+function StatusBadge({ status, upcoming }: { status: CaseStatus; upcoming: boolean }) {
+  if (status === 'new' && !upcoming) return null;
+  const label =
+    status === 'solved' ? 'Resuelto' : status === 'revealed' ? 'Revelado' : status === 'in_progress' ? 'A medias' : 'Siguiente';
   return (
     <ThemedText type="small" themeColor="accent">
       {label}

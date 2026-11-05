@@ -1,13 +1,13 @@
 {
-  "id": "comisaria",
-  "title": "La comisaría",
+  "id": "brook",
+  "title": "Brook Street",
   "difficulty": "medium",
-  "blurb": "El parte de Pedro quedó sin firmar en el torno.",
+  "blurb": "Blessington apareció ahorcado en su cuarto. El médico duerme en el piso de abajo.",
   "size": 8,
   "areas": [
     {
       "id": 0,
-      "name": "la Sala",
+      "name": "el Cuarto",
       "color": "#f0c7b8",
       "cells": [
         [
@@ -86,7 +86,7 @@
     },
     {
       "id": 1,
-      "name": "el Laboratorio",
+      "name": "el Consultorio",
       "color": "#d5ebe4",
       "cells": [
         [
@@ -188,7 +188,7 @@
     },
     {
       "id": 3,
-      "name": "el Archivo",
+      "name": "el Comedor",
       "color": "#f3d7c0",
       "cells": [
         [
@@ -243,7 +243,7 @@
     },
     {
       "id": 4,
-      "name": "las Fichas",
+      "name": "la Cocina",
       "color": "#c5daf3",
       "cells": [
         [
@@ -345,8 +345,8 @@
   ],
   "victim": {
     "id": "pedro",
-    "name": "Pedro Lama",
-    "role": "oficial",
+    "name": "Blessington",
+    "role": "el paciente",
     "color": "#6b6258",
     "cell": [
       0,
@@ -356,8 +356,8 @@
   "suspects": [
     {
       "id": "ana",
-      "name": "Alba Méndez",
-      "role": "testigo",
+      "name": "Tom Bell",
+      "role": "botones",
       "color": "#c4476a",
       "clues": [
         {
@@ -376,8 +376,8 @@
     },
     {
       "id": "bruno",
-      "name": "Blanca Torrent",
-      "role": "forense",
+      "name": "Percy Trevelyan",
+      "role": "médico",
       "color": "#b85a18",
       "clues": [
         {
@@ -396,8 +396,8 @@
     },
     {
       "id": "cleo",
-      "name": "Carmen Oliva",
-      "role": "abogada",
+      "name": "Biddle",
+      "role": "antiguo socio",
       "color": "#8c6410",
       "clues": [
         {
@@ -416,8 +416,8 @@
     },
     {
       "id": "diego",
-      "name": "Daniel Cervera",
-      "role": "periodista",
+      "name": "Hayward",
+      "role": "antiguo socio",
       "color": "#2f8f55",
       "clues": [
         {
@@ -437,8 +437,8 @@
     },
     {
       "id": "elsa",
-      "name": "Eulalia Cid",
-      "role": "archivera",
+      "name": "Moffat",
+      "role": "antiguo socio",
       "color": "#2a7f86",
       "clues": [
         {
@@ -457,8 +457,8 @@
     },
     {
       "id": "fabio",
-      "name": "Fernando Arias",
-      "role": "escolta",
+      "name": "Annie Croft",
+      "role": "doncella",
       "color": "#3a6fbe",
       "clues": [
         {
@@ -477,8 +477,8 @@
     },
     {
       "id": "greta",
-      "name": "Gracia Benet",
-      "role": "inspectora",
+      "name": "Will Dunn",
+      "role": "cochero",
       "color": "#6d52b8",
       "clues": [
         {

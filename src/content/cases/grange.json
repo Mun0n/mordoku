@@ -1,13 +1,13 @@
 {
-  "id": "kiosco",
-  "title": "El kiosco",
+  "id": "grange",
+  "title": "Abbey Grange",
   "difficulty": "very_easy",
-  "blurb": "Cerró con Inés entre las revistas y nadie oyó la persiana.",
+  "blurb": "Sir Eustace quedó en el comedor, con la campanilla cortada y el cristal roto.",
   "size": 6,
   "areas": [
     {
       "id": 0,
-      "name": "el Salón",
+      "name": "el Comedor",
       "color": "#f0c7b8",
       "cells": [
         [
@@ -23,6 +23,10 @@
           2
         ],
         [
+          0,
+          3
+        ],
+        [
           1,
           0
         ],
@@ -33,18 +37,34 @@
         [
           1,
           2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          3
         ]
       ]
     },
     {
       "id": 1,
-      "name": "la Cocina",
-      "color": "#f6e2a8",
+      "name": "la Despensa",
+      "color": "#c5daf3",
       "cells": [
-        [
-          0,
-          3
-        ],
         [
           0,
           4
@@ -55,90 +75,82 @@
         ],
         [
           1,
-          3
-        ],
-        [
-          1,
           4
         ],
         [
           1,
+          5
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          2,
           5
         ]
       ]
     },
     {
       "id": 2,
-      "name": "el Patio",
-      "color": "#cfe6c4",
+      "name": "el Salón",
+      "color": "#f6e2a8",
       "cells": [
         [
-          2,
+          3,
           0
         ],
         [
-          2,
+          3,
           1
         ],
         [
-          2,
+          3,
           2
         ],
         [
-          2,
+          3,
           3
         ],
         [
-          2,
+          3,
           4
         ],
         [
-          2,
+          3,
           5
         ],
         [
-          3,
+          4,
           0
         ],
         [
-          3,
+          4,
           1
         ],
         [
-          3,
+          4,
           2
         ],
         [
-          3,
+          4,
           3
         ],
         [
-          3,
+          4,
           4
         ],
         [
-          3,
+          4,
           5
         ]
       ]
     },
     {
       "id": 3,
-      "name": "el Sótano",
-      "color": "#d5ebe4",
+      "name": "el Vestíbulo",
+      "color": "#cfe6c4",
       "cells": [
-        [
-          4,
-          0
-        ],
-        [
-          4,
-          1
-        ],
-        [
-          4,
-          2
-        ],
         [
           5,
           0
@@ -150,25 +162,6 @@
         [
           5,
           2
-        ]
-      ]
-    },
-    {
-      "id": 4,
-      "name": "la Oficina",
-      "color": "#c5daf3",
-      "cells": [
-        [
-          4,
-          3
-        ],
-        [
-          4,
-          4
-        ],
-        [
-          4,
-          5
         ],
         [
           5,
@@ -187,130 +180,91 @@
   ],
   "objects": [
     {
-      "r": 1,
+      "r": 0,
       "c": 0,
       "kind": "silla"
     },
     {
-      "r": 1,
-      "c": 2,
+      "r": 0,
+      "c": 3,
       "kind": "planta"
     },
     {
-      "r": 0,
+      "r": 2,
       "c": 5,
       "kind": "mesa"
     },
     {
-      "r": 2,
-      "c": 3,
+      "r": 3,
+      "c": 2,
       "kind": "alfombra"
     },
     {
-      "r": 3,
-      "c": 4,
+      "r": 4,
+      "c": 0,
       "kind": "estanteria"
     },
     {
       "r": 4,
-      "c": 1,
-      "kind": "planta"
-    },
-    {
-      "r": 4,
-      "c": 2,
+      "c": 5,
       "kind": "silla"
     },
     {
       "r": 5,
-      "c": 4,
+      "c": 3,
       "kind": "sofa"
     }
   ],
   "blocked": [
     [
-      1,
-      2
+      0,
+      3
     ],
     [
-      0,
+      2,
       5
     ],
     [
-      3,
-      4
-    ],
-    [
       4,
-      1
+      0
     ]
   ],
   "victim": {
-    "id": "ines",
-    "name": "Inés Lara",
-    "role": "quiosquera",
+    "id": "rosa",
+    "name": "Eustace Brackenstall",
+    "role": "el señor",
     "color": "#6b6258",
     "cell": [
-      0,
+      1,
       1
     ]
   },
   "suspects": [
     {
-      "id": "abel",
-      "name": "Mateo Ribas",
-      "role": "repartidor",
+      "id": "nora",
+      "name": "Theresa Wright",
+      "role": "doncella",
       "color": "#c4476a",
       "clues": [
         {
+          "kind": "on",
+          "object": "silla"
+        },
+        {
           "kind": "west",
-          "of": "ines"
+          "of": "berta"
         },
         {
-          "kind": "area",
-          "id": 3,
-          "negate": true
+          "kind": "north",
+          "of": "luz"
         }
       ]
     },
     {
-      "id": "bea",
-      "name": "Berta Calvo",
-      "role": "clienta",
+      "id": "ivan",
+      "name": "Jack Croker",
+      "role": "capitán",
       "color": "#b85a18",
-      "clues": [
-        {
-          "kind": "area",
-          "id": 3,
-          "negate": true
-        },
-        {
-          "kind": "south",
-          "of": "abel"
-        }
-      ]
-    },
-    {
-      "id": "carlos",
-      "name": "Hugo Paredes",
-      "role": "vecino",
-      "color": "#8c6410",
-      "clues": [
-        {
-          "kind": "beside",
-          "object": "estanteria"
-        },
-        {
-          "kind": "south",
-          "of": "bea"
-        }
-      ]
-    },
-    {
-      "id": "dina",
-      "name": "Silvia Navarro",
-      "role": "sobrina",
-      "color": "#2f8f55",
       "clues": [
         {
           "kind": "area",
@@ -318,24 +272,73 @@
           "negate": true
         },
         {
-          "kind": "on",
-          "object": "silla"
+          "kind": "north",
+          "of": "luz"
+        },
+        {
+          "kind": "east",
+          "of": "rosa"
         }
       ]
     },
     {
-      "id": "eva",
-      "name": "Andrés Vidal",
-      "role": "contable",
-      "color": "#2a7f86",
+      "id": "luz",
+      "name": "Mary Brackenstall",
+      "role": "la señora",
+      "color": "#8c6410",
       "clues": [
         {
-          "kind": "east",
-          "of": "bea"
+          "kind": "south",
+          "of": "ivan"
+        },
+        {
+          "kind": "north",
+          "of": "teo"
         },
         {
           "kind": "west",
-          "of": "carlos"
+          "of": "berta"
+        }
+      ]
+    },
+    {
+      "id": "teo",
+      "name": "Ellen Shaw",
+      "role": "cocinera",
+      "color": "#2f8f55",
+      "clues": [
+        {
+          "kind": "on",
+          "object": "silla"
+        },
+        {
+          "kind": "south",
+          "of": "luz"
+        },
+        {
+          "kind": "east",
+          "of": "ivan"
+        }
+      ]
+    },
+    {
+      "id": "berta",
+      "name": "Ralph Keene",
+      "role": "lacayo",
+      "color": "#2a7f86",
+      "clues": [
+        {
+          "kind": "south",
+          "of": "teo"
+        },
+        {
+          "kind": "south",
+          "of": "rosa"
+        },
+        {
+          "kind": "area",
+          "id": 0,
+          "negate": true
         }
       ]
     }
@@ -343,30 +346,30 @@
   "caseClues": [
     {
       "kind": "census",
-      "area": 3,
-      "count": 1
+      "area": 2,
+      "count": 2
     }
   ],
   "solution": {
-    "abel": [
-      1,
+    "nora": [
+      0,
       0
     ],
-    "bea": [
+    "ivan": [
       2,
-      3
+      4
     ],
-    "carlos": [
+    "luz": [
       3,
-      5
-    ],
-    "dina": [
-      4,
       2
     ],
-    "eva": [
+    "teo": [
+      4,
+      5
+    ],
+    "berta": [
       5,
-      4
+      3
     ]
   }
 }

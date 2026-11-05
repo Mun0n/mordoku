@@ -1,13 +1,13 @@
 {
-  "id": "bodega",
-  "title": "La bodega",
+  "id": "cunningham",
+  "title": "Los Cunningham",
   "difficulty": "easy",
-  "blurb": "Tomás bajó a catar y la cuba seguía llena.",
+  "blurb": "El cochero William Kirwan amaneció muerto. En la casa hablan de un robo.",
   "size": 7,
   "areas": [
     {
       "id": 0,
-      "name": "la Barra",
+      "name": "el Jardín",
       "color": "#f3d7c0",
       "cells": [
         [
@@ -70,7 +70,7 @@
     },
     {
       "id": 1,
-      "name": "la Cava",
+      "name": "el Estudio",
       "color": "#e4d2f4",
       "cells": [
         [
@@ -133,7 +133,7 @@
     },
     {
       "id": 2,
-      "name": "la Nave",
+      "name": "la Cochera",
       "color": "#d5ebe4",
       "cells": [
         [
@@ -188,7 +188,7 @@
     },
     {
       "id": 3,
-      "name": "la Oficina",
+      "name": "la Cocina",
       "color": "#c5daf3",
       "cells": [
         [
@@ -287,8 +287,8 @@
   ],
   "victim": {
     "id": "tomas",
-    "name": "Tomás Rueda",
-    "role": "bodeguero",
+    "name": "William Kirwan",
+    "role": "cochero",
     "color": "#6b6258",
     "cell": [
       0,
@@ -298,8 +298,8 @@
   "suspects": [
     {
       "id": "rita",
-      "name": "Jonás Puig",
-      "role": "cliente",
+      "name": "Señor Acton",
+      "role": "el vecino",
       "color": "#c4476a",
       "clues": [
         {
@@ -319,8 +319,8 @@
     },
     {
       "id": "oscar",
-      "name": "Amparo Blasco",
-      "role": "catadora",
+      "name": "Alec Cunningham",
+      "role": "el hijo",
       "color": "#b85a18",
       "clues": [
         {
@@ -340,8 +340,8 @@
     },
     {
       "id": "nuria",
-      "name": "Leire Domènech",
-      "role": "sumiller",
+      "name": "Cunningham",
+      "role": "el padre",
       "color": "#8c6410",
       "clues": [
         {
@@ -360,8 +360,8 @@
     },
     {
       "id": "leo",
-      "name": "Víctor Pla",
-      "role": "mozo",
+      "name": "Hayter",
+      "role": "el coronel",
       "color": "#2f8f55",
       "clues": [
         {
@@ -380,8 +380,8 @@
     },
     {
       "id": "gala",
-      "name": "Celia Martí",
-      "role": "contable",
+      "name": "Edith Moore",
+      "role": "doncella",
       "color": "#2a7f86",
       "clues": [
         {
@@ -400,8 +400,8 @@
     },
     {
       "id": "eva",
-      "name": "Quim Palau",
-      "role": "comercial",
+      "name": "Brooks",
+      "role": "mozo",
       "color": "#3a6fbe",
       "clues": [
         {

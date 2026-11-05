@@ -5,7 +5,7 @@ import Svg, { Circle, G, Line, Rect, Text as SvgText } from 'react-native-svg';
 import { bodyCell } from '@/engine/check';
 import { gridOf } from '@/engine/grid';
 import { initial } from '@/engine/text';
-import { cellKey, sameCell, type Assignment, type Cell, type Puzzle } from '@/engine/types';
+import { cellKey, type Assignment, type Cell, type Puzzle } from '@/engine/types';
 import type { Notes } from '@/game/state';
 import { ObjectGlyph } from '@/ui/Glyph';
 
@@ -29,7 +29,6 @@ export function Board({ puzzle, placements, notes, selectedId, width, onTap, onL
   const cell = Math.floor((width - PAD * 2) / puzzle.size);
   const inner = cell * puzzle.size;
   const board = inner + PAD * 2;
-  const selected = selectedId ? puzzle.suspects.find((suspect) => suspect.id === selectedId) : null;
   const wall = Math.max(3.5, cell * 0.07);
   const body = bodyCell(puzzle, placements);
 
@@ -40,17 +39,7 @@ export function Board({ puzzle, placements, notes, selectedId, width, onTap, onL
         {Array.from({ length: puzzle.size }, (_, r) =>
           Array.from({ length: puzzle.size }, (_, c) => {
             const area = grid.areaId[r][c];
-            const occupied = occupant(puzzle, placements, r, c);
-            const illegal =
-              Boolean(selected) &&
-              !sameCell({ r, c }, occupied?.cell ?? { r: -1, c: -1 }) &&
-              (grid.blocked[r][c] ||
-                (body !== null && (r === body.r || c === body.c)) ||
-                puzzle.suspects.some((suspect) => {
-                  if (suspect.id === selectedId) return false;
-                  const placed = placements[suspect.id];
-                  return placed && (placed.r === r || placed.c === c);
-                }));
+            const closed = lineClosed(puzzle, placements, selectedId, body, r, c);
             return (
               <Floor
                 key={`${r}-${c}`}
@@ -60,10 +49,24 @@ export function Board({ puzzle, placements, notes, selectedId, width, onTap, onL
                 color={grid.areaColor.get(area) ?? PAPER}
                 pattern={floorPattern(area)}
                 light={(r + c) % 2 === 0}
-                dim={illegal}
+                dim={Boolean(selectedId) && grid.blocked[r][c] && !closed}
               />
             );
           }),
+        )}
+        {Array.from({ length: puzzle.size }, (_, r) =>
+          Array.from({ length: puzzle.size }, (_, c) =>
+            lineClosed(puzzle, placements, selectedId, body, r, c) ? (
+              <Rect
+                key={`w-${r}-${c}`}
+                x={PAD + c * cell}
+                y={PAD + r * cell}
+                width={cell}
+                height={cell}
+                fill="rgba(43, 38, 34, 0.34)"
+              />
+            ) : null,
+          ),
         )}
         {roomGrid(grid.areaId, cell)}
         {puzzle.objects.map((item) => {
@@ -78,6 +81,13 @@ export function Board({ puzzle, placements, notes, selectedId, width, onTap, onL
             />
           );
         })}
+        {Array.from({ length: puzzle.size }, (_, r) =>
+          Array.from({ length: puzzle.size }, (_, c) =>
+            lineClosed(puzzle, placements, selectedId, body, r, c) ? (
+              <Closed key={`x-${r}-${c}`} x={PAD + c * cell} y={PAD + r * cell} size={cell} />
+            ) : null,
+          ),
+        )}
         {Array.from({ length: puzzle.size }, (_, r) =>
           Array.from({ length: puzzle.size }, (_, c) => {
             if (occupant(puzzle, placements, r, c)) return null;
@@ -162,6 +172,55 @@ export function Board({ puzzle, placements, notes, selectedId, width, onTap, onL
         )}
       </View>
     </View>
+  );
+}
+
+function lineClosed(
+  puzzle: Puzzle,
+  placements: Assignment,
+  selectedId: string | null,
+  body: Cell | null,
+  r: number,
+  c: number,
+): boolean {
+  if (body && body.r === r && body.c === c) return false;
+  for (const suspect of puzzle.suspects) {
+    const placed = placements[suspect.id];
+    if (placed && placed.r === r && placed.c === c) return false;
+  }
+  if (body && (body.r === r || body.c === c)) return true;
+  for (const suspect of puzzle.suspects) {
+    if (suspect.id === selectedId) continue;
+    const placed = placements[suspect.id];
+    if (placed && (placed.r === r || placed.c === c)) return true;
+  }
+  return false;
+}
+
+function Closed({ x, y, size }: { x: number; y: number; size: number }) {
+  const inset = size * 0.2;
+  const stroke = Math.max(2.6, size * 0.08);
+  return (
+    <G>
+      <Line
+        x1={x + inset}
+        y1={y + inset}
+        x2={x + size - inset}
+        y2={y + size - inset}
+        stroke={INK}
+        strokeWidth={stroke}
+        strokeLinecap="round"
+      />
+      <Line
+        x1={x + size - inset}
+        y1={y + inset}
+        x2={x + inset}
+        y2={y + size - inset}
+        stroke={INK}
+        strokeWidth={stroke}
+        strokeLinecap="round"
+      />
+    </G>
   );
 }
 

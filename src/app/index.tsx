@@ -5,30 +5,41 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import { caseById } from '@/content/cases';
+import { caseById, cases } from '@/content/cases';
 import { Fonts, Spacing } from '@/constants/theme';
+import { caseIsOpen } from '@/game/campaign';
 import { useTheme } from '@/hooks/use-theme';
-import { loadProgress, resumeCaseId } from '@/storage/progress';
+import { hasSeenHowTo, loadProgress, resumeCaseId } from '@/storage/progress';
 import { Mark } from '@/ui/Mark';
 
 export default function MenuScreen() {
   const router = useRouter();
   const [ready, setReady] = useState(false);
   const [resumeId, setResumeId] = useState<string | null>(null);
+  const [cleared, setCleared] = useState(false);
 
   useFocusEffect(
     useCallback(() => {
       let live = true;
-      loadProgress().then((file) => {
+      Promise.all([loadProgress(), hasSeenHowTo()]).then(([file, seen]) => {
         if (!live) return;
+        if (!seen) {
+          router.replace('/how-to');
+          return;
+        }
         const id = resumeCaseId(file);
-        setResumeId(id && caseById(id) ? id : null);
+        const order = cases.map((puzzle) => puzzle.id);
+        const open = id && caseIsOpen(order, id, (caseId) => file[caseId]?.status === 'solved');
+        setResumeId(open && caseById(id) ? id : null);
+        setCleared(order.length > 0 && order.every((caseId) => file[caseId]?.status === 'solved'));
         setReady(true);
+      }).catch(() => {
+        if (live) setReady(true);
       });
       return () => {
         live = false;
       };
-    }, []),
+    }, [router]),
   );
 
   if (!ready) return <ThemedView style={styles.fill} />;
@@ -46,7 +57,12 @@ export default function MenuScreen() {
             </ThemedText>
           </View>
           <View style={styles.actions}>
-            <MenuButton label="Nueva partida" onPress={() => router.push('/cases')} primary={!resume} />
+            <MenuButton
+              label={cleared ? 'Niveles' : 'Nueva partida'}
+              hint={cleared ? 'Campaña completa' : undefined}
+              onPress={() => router.push('/cases')}
+              primary={!resume}
+            />
             {resume ? (
               <MenuButton
                 label="Continuar partida"

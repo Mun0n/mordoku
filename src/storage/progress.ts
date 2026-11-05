@@ -37,14 +37,35 @@ export async function loadProgress(): Promise<ProgressFile> {
   return memory;
 }
 
-export function writeCase(id: string, progress: CaseProgress): Promise<void> {
-  const job = tail.then(async () => {
-    if (!memory) await loadProgress();
-    memory = { ...memory, [id]: { ...progress, updatedAt: Date.now() } };
-    await AsyncStorage.setItem(PROGRESS_KEY, JSON.stringify(memory));
-  });
-  tail = job.catch(() => undefined);
+function enqueue(job: Promise<void>): Promise<void> {
+  tail = job.then(
+    () => undefined,
+    () => undefined,
+  );
   return job;
+}
+
+export function progressSnapshot(): ProgressFile {
+  return memory ?? {};
+}
+
+export function writeCase(id: string, progress: CaseProgress): Promise<void> {
+  return enqueue(
+    tail.then(async () => {
+      if (!memory) await loadProgress();
+      memory = { ...memory, [id]: { ...progress, updatedAt: Date.now() } };
+      await AsyncStorage.setItem(PROGRESS_KEY, JSON.stringify(memory));
+    }),
+  );
+}
+
+export function clearProgress(): Promise<void> {
+  return enqueue(
+    tail.then(async () => {
+      memory = {};
+      await AsyncStorage.removeItem(PROGRESS_KEY);
+    }),
+  );
 }
 
 export function resumeCaseId(file: ProgressFile): string | null {
